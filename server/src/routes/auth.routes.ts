@@ -1,41 +1,41 @@
-import express from "express";
-import { validate } from "express-validation";
-import * as authValidator from "../controllers/auth/auth.validator";
-import * as authController from "../controllers/auth/auth.controller";
+import express from 'express'
+import { validate } from 'express-validation'
+import * as authValidator from '../controllers/auth/auth.validator'
+import * as authController from '../controllers/auth/auth.controller'
 
-const router = express.Router();
+const router = express.Router()
 
 /**  Register a new user
-// @route POST /api/auth/register
-// @Body email, password, confirmPassword
-// @desc Register a new user
-// @access Public
+* @route POST /api/auth/register
+* @Body email, password, confirmPassword
+* @desc Register a new user
+* @access Public
 */
 router.post(
-    "/register",
-    validate(authValidator.registerSchema, { keyByField: true }, { abortEarly: false, }),
-    authController.register
-);
+  '/register',
+  validate(authValidator.registerSchema, { keyByField: true }, { abortEarly: false }),
+  authController.register
+)
 
 /**  Login a user
  * @route POST /api/auth/login
  * @Body email, password
  * @desc Login a user
  * @access Public
+ *
  * */
 router.post(
-    "/login",
-    validate(authValidator.loginSchema, { keyByField: true }, { abortEarly: false, }),
-    authController.login
-);
-
+  '/login',
+  validate(authValidator.loginSchema, { keyByField: true }, { abortEarly: false }),
+  await authController.login
+)
 
 /**  Logout a user
  * @route POST /api/auth/logout
  * @desc Logout a user
  * @access Private
+ *
  * */
-router.post("/logout", authController.logout);
+router.post('/logout', authController.logout)
 
-
-export default router;
+export default router

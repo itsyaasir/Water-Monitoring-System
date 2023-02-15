@@ -1,9 +1,14 @@
 {
     "compilerOptions": {
         "esModuleInterop": true,
-        "module": "ES6",
+        "module": "esnext",
         "moduleResolution": "node",
         "pretty": true,
+        "strictNullChecks": true
     },
     "compileOnSave": true,
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
 }

@@ -1,20 +1,18 @@
 
-import { Joi } from "express-validation";
-
+import { Joi } from 'express-validation'
 
 export const registerSchema = {
-    body: Joi.object({
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
-        confirmPassword: Joi.string().required(),
-    }),
+  body: Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+    confirmPassword: Joi.string().required()
+  })
 
-};
-
+}
 
 export const loginSchema = {
-    body: Joi.object({
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
-    }),
-};
+  body: Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required()
+  })
+}
