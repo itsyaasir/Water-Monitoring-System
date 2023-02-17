@@ -1,9 +1,12 @@
-import express from 'express'
-import { validate } from 'express-validation'
-import * as authValidator from '../controllers/auth/auth.validator'
-import * as authController from '../controllers/auth/auth.controller'
+import * as express from 'express';
+import { validate } from 'express-validation';
+import * as authValidator from '../controllers/auth/auth.validator';
+import * as authController from '../controllers/auth/auth.controller';
+import { createValidator } from 'express-joi-validation';
 
-const router = express.Router()
+const validator = createValidator({ passError: true })
+
+const router = express.Router();
 
 /**  Register a new user
 * @route POST /api/auth/register
@@ -13,9 +16,9 @@ const router = express.Router()
 */
 router.post(
   '/register',
-  validate(authValidator.registerSchema, { keyByField: true }, { abortEarly: false }),
-  authController.register
-)
+  validator.body(authValidator.registerSchema),
+  authController.register,
+);
 
 /**  Login a user
  * @route POST /api/auth/login
@@ -26,9 +29,9 @@ router.post(
  * */
 router.post(
   '/login',
-  validate(authValidator.loginSchema, { keyByField: true }, { abortEarly: false }),
-  await authController.login
-)
+  validator.body(authValidator.loginSchema),
+  authController.login,
+);
 
 /**  Logout a user
  * @route POST /api/auth/logout
@@ -36,6 +39,6 @@ router.post(
  * @access Private
  *
  * */
-router.post('/logout', authController.logout)
+router.post('/logout', authController.logout);
 
-export default router
+export default router;

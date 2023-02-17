@@ -1,14 +1,17 @@
 {
     "compilerOptions": {
         "esModuleInterop": true,
-        "module": "esnext",
         "moduleResolution": "node",
         "pretty": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "target": "ES2015",
+        "module": "commonjs"
     },
     "compileOnSave": true,
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "src/**/*.spec.ts",
+        "src/config/config.json",
     ],
 }

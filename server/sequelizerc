@@ -1,0 +1,9 @@
+import * as path from 'path';
+
+
+export default {
+    'config': path.resolve('./src', 'config', 'config.ts'),
+    // 'models-path': path.resolve('./src/db', 'models'),
+    // 'seeders-path': path.resolve('./src/db', 'seeders'),
+    // 'migrations-path': path.resolve('./src/db', 'migrations'),
+};

@@ -5,7 +5,7 @@
         "es2021": true,
         "node": true
     },
-    "extends": "standard-with-typescript",
+    "extends": "airbnb-base",
     "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest",
