@@ -1,10 +1,7 @@
-import * as express from 'express';
+import express from 'express';
 import { validate } from 'express-validation';
 import * as authValidator from '../controllers/auth/auth.validator';
 import * as authController from '../controllers/auth/auth.controller';
-import { createValidator } from 'express-joi-validation';
-
-const validator = createValidator({ passError: true })
 
 const router = express.Router();
 
@@ -16,7 +13,11 @@ const router = express.Router();
 */
 router.post(
   '/register',
-  validator.body(authValidator.registerSchema),
+  validate(
+    authValidator.registerSchema,
+    { keyByField: true },
+    { allowUnknown: true, abortEarly: false, errors: { wrap: { label: '' } } },
+  ),
   authController.register,
 );
 
@@ -29,7 +30,7 @@ router.post(
  * */
 router.post(
   '/login',
-  validator.body(authValidator.loginSchema),
+  validate(authValidator.loginSchema),
   authController.login,
 );
 

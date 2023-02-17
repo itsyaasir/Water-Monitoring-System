@@ -5,11 +5,11 @@ const {
   combine, timestamp, label, printf,
 } = format;
 
-const myFormat = printf(({
-  level, message, label, timestamp,
-}) => {
+const myFormat = printf((info) => {
   const rid = rTracer.id();
-  return `${timestamp} [${label}] ${rid} ${level}: ${message}`;
+  return rid
+    ? `${info.timestamp} [request-id:${rid}]: ${info.message}`
+    : `${info.timestamp}: ${info.message}`;
 });
 
 const logger = createLogger({
