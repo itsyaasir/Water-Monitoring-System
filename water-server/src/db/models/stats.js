@@ -29,8 +29,7 @@ export default (sequelize, DataTypes) => {
     },
     temperature: { type: DataTypes.FLOAT, allowNull: false },
     ph: DataTypes.FLOAT,
-    oxygen: DataTypes.FLOAT,
-    ec: DataTypes.FLOAT,
+    turb: DataTypes.FLOAT,
   }, {
     sequelize,
     modelName: 'Stats',

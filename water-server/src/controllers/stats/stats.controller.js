@@ -5,17 +5,9 @@ import { errorResponse, successResponse } from '../../utils';
 
 export const postStats = async (req, res) => {
   try {
-    const {
-      temperature, ph, oxygen, ec,
-    } = req.body;
-
-    //   add user id to stats
-
     req.body.userId = req.user.id;
 
-    const stats = await Stats.create({
-      temperature, ph, oxygen, ec,
-    });
+    const stats = await Stats.create(req.body);
     return successResponse(req, res, stats, 'Stats created successfully', 201);
   } catch (error) {
     logger.error(error);

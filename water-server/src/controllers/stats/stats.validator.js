@@ -4,8 +4,7 @@ export const statsSchema = {
   body: Joi.object({
     temperature: Joi.number().required(),
     ph: Joi.number().required(),
-    oxygen: Joi.number().required(),
-    ec: Joi.number().required(),
+    turb: Joi.number().required(),
   }),
 };
 

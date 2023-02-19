@@ -80,7 +80,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   logger.info('Logging out user');
   try {
-    req.headers['x-access-token'] = null;
+    req.headers['x-token'] = null;
     req.headers = {};
     return successResponse(req, res, 'User logged out successfully', null);
   } catch (error) {
