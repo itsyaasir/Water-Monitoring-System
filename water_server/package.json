@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "water_server",
   "version": "1.0.0",
   "description": "Server",
   "main": "server.ts",
