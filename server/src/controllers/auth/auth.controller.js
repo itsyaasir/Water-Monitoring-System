@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import logger from '../../utils/logger';
-import { User } from '../../db/models';
+import User from '../../db/models';
 import Password from '../../services/password';
 import { errorResponse, successResponse } from '../../utils';
 
@@ -33,16 +33,10 @@ export const register = async (req, res) => {
       throw new Error('Error creating user');
     }
 
-    // const data = {
-    //   user: {
-    //     email,
-    //   },
-    // };
-
-    return successResponse(req, res, 'User created successfully');
+    return successResponse(req, res, 'User created successfully', 201);
   } catch (error) {
     logger.error(error);
-    return errorResponse(req, res, error.message, 'Failed', 505);
+    return errorResponse(req, res, error.message, 'Failed', 500);
   }
 };
 
@@ -66,8 +60,7 @@ export const login = async (req, res) => {
     }
 
     // Generate token
-    const secret = process.env.JWT_SECRET || 'secret';
-    const token = jwt.sign({ id: user.id, email: user.email, createdAt: new Date() }, secret, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id, email: user.email, createdAt: new Date() }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
     const data = {
       token,
@@ -77,7 +70,7 @@ export const login = async (req, res) => {
       },
     };
 
-    return successResponse(req, res, 'User logged in successfully', data);
+    return successResponse(req, res, data, 200);
   } catch (error) {
     logger.error(error);
     return errorResponse(req, res, error.message, 400);
@@ -87,8 +80,20 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   logger.info('Logging out user');
   try {
+    req.headers['x-access-token'] = null;
     req.headers = {};
     return successResponse(req, res, 'User logged out successfully', null);
+  } catch (error) {
+    logger.error(error);
+    return errorResponse(req, res, error.message, 400);
+  }
+};
+
+export const getCurrentUser = async (req, res) => {
+  logger.info('Getting current user');
+  try {
+    const user = await User.findOne({ where: { id: req.user.id } });
+    return successResponse(req, res, user, 200);
   } catch (error) {
     logger.error(error);
     return errorResponse(req, res, error.message, 400);

@@ -2,6 +2,7 @@ import authRoutes from './src/routes/auth.routes';
 import logger from './src/utils/logger';
 import errorHandler from './src/middlewares/errorHandler';
 import { errorResponse } from './src/utils';
+import statsRoutes from './src/routes/stats.routes';
 
 const express = require('express');
 const morgan = require('morgan');
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/stats', statsRoutes);
 
 app.use(errorHandler);
 

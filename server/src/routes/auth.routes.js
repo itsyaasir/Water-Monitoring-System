@@ -2,6 +2,7 @@ import express from 'express';
 import { validate } from 'express-validation';
 import * as authValidator from '../controllers/auth/auth.validator';
 import * as authController from '../controllers/auth/auth.controller';
+import requireAuth from '../middlewares/requireAuth';
 
 const router = express.Router();
 
@@ -41,5 +42,16 @@ router.post(
  *
  * */
 router.post('/logout', authController.logout);
+
+/**  Get current user
+ * @route GET /api/auth/current
+ * @desc Get current user
+ * @access Private
+ * */
+router.get(
+  '/current',
+  requireAuth,
+  authController.getCurrentUser,
+);
 
 export default router;
