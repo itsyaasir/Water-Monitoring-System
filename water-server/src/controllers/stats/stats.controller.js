@@ -4,6 +4,7 @@ import logger from '../../utils/logger';
 import { errorResponse, successResponse } from '../../utils';
 
 export const postStats = async (req, res) => {
+  logger.info('Posting stats');
   try {
     req.body.userId = req.user.id;
 
@@ -16,6 +17,7 @@ export const postStats = async (req, res) => {
 };
 
 export const getStats = async (req, res) => {
+  logger.info('Getting stats');
   try {
     const stats = await Stats.findAll({
       where: {
@@ -30,6 +32,7 @@ export const getStats = async (req, res) => {
 };
 
 export const getStatsRange = async (req, res) => {
+  logger.info('Getting stats range');
   try {
     const { start, end } = req.body;
 
@@ -49,6 +52,7 @@ export const getStatsRange = async (req, res) => {
 };
 
 export const getLatestStats = async (req, res) => {
+  logger.info('Getting latest stats');
   try {
     const stats = await Stats.findAll({
       where: {

@@ -6,7 +6,6 @@ import { errorResponse, successResponse } from '../../utils';
 
 export const register = async (req, res) => {
   logger.info('Registering user');
-  console.log(req.body);
   try {
     const { email, password, confirmPassword } = req.body;
 
