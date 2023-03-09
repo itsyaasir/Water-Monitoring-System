@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import logger from '../../utils/logger';
-import User from '../../db/models';
+import { User } from '../../db/models';
 import Password from '../../services/password';
 import { errorResponse, successResponse } from '../../utils';
 
@@ -50,6 +50,8 @@ export const login = async (req, res) => {
     if (!user) {
       throw new Error('User does not exist');
     }
+
+
 
     // Check if password is correct
     const isPasswordCorrect = await Password.compare(user.password, password);

@@ -7,7 +7,7 @@ class Password {
   }
 
   static async compare(storedPassword, suppliedPassword) {
-    return bcrypt.compare(storedPassword, suppliedPassword);
+    return bcrypt.compare(suppliedPassword, storedPassword);
   }
 }
 

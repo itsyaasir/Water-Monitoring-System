@@ -27,7 +27,7 @@ export default (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    temperature: { type: DataTypes.FLOAT, allowNull: false },
+    waterLevel: { type: DataTypes.FLOAT, allowNull: false },
     ph: DataTypes.FLOAT,
     turb: DataTypes.FLOAT,
     createdAt: {

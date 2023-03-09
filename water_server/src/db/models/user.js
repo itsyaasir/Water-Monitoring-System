@@ -3,7 +3,7 @@ import { UUIDV4, NOW, Model } from 'sequelize';
 export default (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasOne(models.Stats, {
+      User.hasMany(models.Stats, {
         foreignKey: 'userId',
         as: 'stats',
       });
