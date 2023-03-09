@@ -1,7 +1,8 @@
 import { Op } from 'sequelize';
-import { Stats } from '../../db/models';
 import logger from '../../utils/logger';
 import { errorResponse, successResponse } from '../../utils';
+
+const { Stats } = require('../../db/models');
 
 export const postStats = async (req, res) => {
   logger.info('Posting stats');

@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import logger from '../../utils/logger';
-import User from '../../db/models';
 import Password from '../../services/password';
 import { errorResponse, successResponse } from '../../utils';
+
+const { User } = require('../../db/models');
 
 export const register = async (req, res) => {
   logger.info('Registering user');
@@ -59,7 +60,7 @@ export const login = async (req, res) => {
     }
 
     // Generate token
-    const token = jwt.sign({ id: user.id, email: user.email, createdAt: new Date() }, process.env.JWT_SECRET, { expiresIn: '30d' });
+    const token = jwt.sign({ id: user.id, email: user.email, createdAt: new Date() }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     const data = {
       token,
