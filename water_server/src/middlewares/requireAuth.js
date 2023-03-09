@@ -1,4 +1,4 @@
-import User from '../db/models';
+import { User } from '../db/models';
 import { errorResponse } from '../utils';
 
 const jwt = require('jsonwebtoken');
@@ -15,9 +15,9 @@ const requireAuth = async (req, res, next) => {
   const token = req.headers['x-token'];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded.user;
+    req.user = decoded;
     const user = await User.findOne({
-      where: { id: req.user.userId },
+      where: { id: req.user.id },
     });
     if (!user) {
       return errorResponse(
@@ -27,6 +27,7 @@ const requireAuth = async (req, res, next) => {
         401,
       );
     }
+
     const reqUser = { ...user.get() };
     reqUser.userId = user.id;
     req.user = reqUser;
@@ -35,7 +36,7 @@ const requireAuth = async (req, res, next) => {
     return errorResponse(
       req,
       res,
-      'Invalid token provided.',
+      `Invalid token provided. ${e}`,
       401,
     );
   }
