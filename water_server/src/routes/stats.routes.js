@@ -46,3 +46,5 @@ router.get(
  * @access Private
  * */
 router.get('/latest', requireAuth, statsController.getLatestStats);
+
+module.exports = router;
