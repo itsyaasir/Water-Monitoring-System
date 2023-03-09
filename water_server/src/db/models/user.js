@@ -1,7 +1,16 @@
-import { UUIDV4, NOW } from 'sequelize';
+import { UUIDV4, NOW, Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  class User extends Model {
+    static associate(models) {
+      User.hasOne(models.Stats, {
+        foreignKey: 'userId',
+        as: 'stats',
+      });
+    }
+  }
+
+  User.init({
     id: {
       type: DataTypes.UUID,
       defaultValue: UUIDV4,
@@ -32,6 +41,8 @@ export default (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     tableName: 'users',
+    freezeTableName: true,
+
   });
 
   return User;

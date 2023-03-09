@@ -12,7 +12,6 @@ const db = {};
 let sequelize;
 
 if (config[env]) {
-  console.log('config[env]::', config[env]);
   sequelize = new Sequelize(config[env]);
 } else {
   sequelize = new Sequelize(
@@ -27,7 +26,6 @@ fs
   .readdirSync(__dirname)
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    console.log('file::', file);
     const dir = `${__dirname}/${file}`;
     // eslint-disable-next-line import/no-dynamic-require, global-require
     const model = require(`${dir}`).default(sequelize, Sequelize.DataTypes);

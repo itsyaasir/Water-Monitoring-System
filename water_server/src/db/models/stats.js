@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'Users',
+        model: 'User',
         key: 'id',
       },
     },
@@ -45,6 +45,7 @@ export default (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Stats',
     tableName: 'stats',
+    freezeTableName: true,
   });
   return Stats;
 };
