@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import Stats from '../../db/models';
+import { Stats } from '../../db/models';
 import logger from '../../utils/logger';
 import { errorResponse, successResponse } from '../../utils';
 
@@ -9,7 +9,7 @@ export const postStats = async (req, res) => {
     req.body.userId = req.user.id;
 
     const stats = await Stats.create(req.body);
-    return successResponse(req, res, stats, 'Stats created successfully', 201);
+    return successResponse(req, res, stats, 201);
   } catch (error) {
     logger.error(error);
     return errorResponse(req, res, error.message, 'Failed', 500);
@@ -24,7 +24,7 @@ export const getStats = async (req, res) => {
         userId: req.user.id,
       },
     });
-    return successResponse(req, res, stats, 'Stats retrieved successfully', 200);
+    return successResponse(req, res, stats, 200);
   } catch (error) {
     logger.error(error);
     return errorResponse(req, res, error.message, 'Failed', 500);
