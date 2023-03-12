@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon --exec babel-node ./server.js",
-    "test": "nyc --reporter=text mocha --config=test/.mocharc.json",
-    "test:watch": "mocha --config=test/.mocharc.json -- --watch",
+    "test" : "yarn jest",
+    "test:watch" : "yarn jest --watch",
     "sequelize": "babel-node node_modules/.bin/sequelize $*",
     "db:drop": "dropdb --if-exists ${POSTGRES_DB}",
     "db:create": "createdb ${POSTGRES_DB}",

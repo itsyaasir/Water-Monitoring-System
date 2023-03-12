@@ -18,7 +18,9 @@ if (config[env]) {
     config.development.database,
     config.development.username,
     config.development.password,
-
+    {
+      dialect: config.development.dialect,
+    },
   );
 }
 
