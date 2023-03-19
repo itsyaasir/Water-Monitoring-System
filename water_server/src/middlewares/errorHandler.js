@@ -1,5 +1,6 @@
 import { errorResponse } from '../utils';
 
+/// Error handler middleware, handles all errors thrown in the application
 const errorHandler = (err, req, res) => {
   if (err && err.name === 'ValidationError') {
     let messages = err.details.body.map((e) => e.message);
