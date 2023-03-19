@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import bcrypt from 'bcrypt';
 
-describe('compare', () => {
+describe('password hashing', () => {
   it('should compare two passwords and return a boolean value', async () => {
     const storedPassword = 'mysecretpassword';
     const suppliedPassword = 'mysecretpassword';
@@ -25,6 +25,12 @@ describe('compare', () => {
 
     // Call the compare function and verify that it returns false
     const result = await bcrypt.compare(hashedPassword, suppliedPassword);
+    expect(result).toBe(false);
+  });
+
+  it("should return false when comparing a password that doesn't exist", async () => {
+    // Call the compare function and verify that it returns false
+    const result = await bcrypt.compare('nonexistentpassword', 'nonexistentpassword');
     expect(result).toBe(false);
   });
 });

@@ -3,6 +3,7 @@ import { errorResponse } from '../utils';
 const jwt = require('jsonwebtoken');
 const { User } = require('../db/models');
 
+/// Middleware to check if user is authenticated, if not, return error
 const requireAuth = async (req, res, next) => {
   if (!(req.headers && req.headers['x-token'])) {
     return errorResponse(
