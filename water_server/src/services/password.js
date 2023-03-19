@@ -9,7 +9,7 @@ class Password {
 
   /// This function compares a stored password with a supplied password
   static async compare(storedPassword, suppliedPassword) {
-    return bcrypt.compare(storedPassword, suppliedPassword);
+    return bcrypt.compare(suppliedPassword, storedPassword);
   }
 }
 
