@@ -21,13 +21,22 @@ class HomeView extends GetView<HomeController> {
               'HomeView is working',
               style: TextStyle(fontSize: 20),
             ),
+            SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
                 onPressed: () {
-                  final token = controller.storage.read("token");
-
-                  print("Token: $token");
+                  Get.toNamed("/register");
                 },
-                child: const Text("Get Token")),
+                child: const Text("Signup")),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Get.toNamed("/login");
+                },
+                child: const Text("Login")),
           ],
         ),
       ),

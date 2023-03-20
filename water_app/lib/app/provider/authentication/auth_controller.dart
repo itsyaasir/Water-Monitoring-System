@@ -22,7 +22,7 @@ class AuthenticationController extends GetxController with PrintLogMixin {
   // Tokens usually expire after a 1D, so we need to refresh the token.
   // We can make an endpoint to refresh the token.
 
-  void register(
+  Future<void> register(
       {required String email,
       required String password,
       required String confirmPassword}) async {
