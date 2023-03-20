@@ -8,7 +8,9 @@ const { User } = require('../../db/models');
 export const register = async (req, res) => {
   logger.info('Registering user');
   try {
-    const { email, password, confirmPassword } = req.body;
+    const {
+      firstName, lastName, email, password, confirmPassword,
+    } = req.body;
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -27,7 +29,9 @@ export const register = async (req, res) => {
 
     // Create user
     try {
-      await User.create({ email, password: hashedPassword });
+      await User.create({
+        email, password: hashedPassword, firstName, lastName,
+      });
     } catch (error) {
       logger.error(error);
       throw new Error('Error creating user');

@@ -16,7 +16,15 @@ export default (sequelize, DataTypes) => {
       defaultValue: UUIDV4,
       primaryKey: true,
     },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
 
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
