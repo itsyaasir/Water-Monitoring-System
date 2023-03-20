@@ -102,11 +102,11 @@ class RegisterView extends GetView<RegisterController> {
                     keyboardType: TextInputType.text,
                     enableSuggestions: false,
                     textCapitalization: TextCapitalization.words,
-                    // validator -: should be same as password
                     validator: (password) =>
                         (password! != controller.password.text.trim())
                             ? "Password does not match"
                             : null,
+                    obscureText: true,
                   ),
                 ),
                 const SizedBox(height: 20),

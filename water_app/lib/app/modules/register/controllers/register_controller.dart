@@ -28,17 +28,17 @@ class RegisterController extends GetxController {
     if (saveFormKey.currentState!.validate()) {
       loadingButtonController.start();
       await _authenticationController.register(
-        email: email.text,
-        password: password.text,
+        email: email.text.trim().toLowerCase(),
+        password: password.text.trim(),
         confirmPassword: confirmPassword.text,
       );
 
       loadingButtonController.stop();
-      email.clear();
-      password.clear();
-      confirmPassword.clear();
-      lastName.clear();
-      firstName.clear();
+      // email.clear();
+      // password.clear();
+      // confirmPassword.clear();
+      // lastName.clear();
+      // firstName.clear();
     }
     loadingButtonController.stop();
   }

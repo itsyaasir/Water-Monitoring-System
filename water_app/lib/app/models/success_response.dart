@@ -14,13 +14,13 @@ class SuccessResponse {
   });
 
   int code;
-  Data data;
+  dynamic data;
   bool success;
 
   factory SuccessResponse.fromJson(Map<String, dynamic> json) =>
       SuccessResponse(
         code: json["code"],
-        data: Data.fromJson(json["data"]),
+        data: json["data"],
         success: json["success"],
       );
 
@@ -28,45 +28,5 @@ class SuccessResponse {
         "code": code,
         "data": data.toJson(),
         "success": success,
-      };
-}
-
-class Data {
-  Data({
-    required this.token,
-    required this.user,
-  });
-
-  String token;
-  User user;
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        token: json["token"],
-        user: User.fromJson(json["user"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "token": token,
-        "user": user.toJson(),
-      };
-}
-
-class User {
-  User({
-    required this.id,
-    required this.email,
-  });
-
-  String id;
-  String email;
-
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        email: json["email"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "email": email,
       };
 }

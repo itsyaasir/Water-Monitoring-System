@@ -27,11 +27,11 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
         printLog("registerUser: success");
         return response;
       } else {
-        printLog("registerUser: failed");
+        printLog("registerUser: failed ${response.body}");
         return response;
       }
     } catch (e) {
-      printLog("registerUser: failed");
+      printLog("registerUser: failed: $e");
       return response;
     }
   }
@@ -73,7 +73,7 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
     } catch (e) {
       printLog("logoutUser: failed");
       printLog(e);
-      throw e;
+      rethrow;
     }
   }
 
@@ -86,8 +86,8 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
     try {
       if (response.statusCode == 200) {
         printLog("getCurrentUser: success");
-        final signInReponse = successResponseFromJson(response.body);
-        return signInReponse.data.token;
+        final successResponse = successResponseFromJson(response.body);
+        return successResponse.data;
       } else {
         printLog("getCurrentUser: failed");
         final error = errorResponseFromJson(response.body);
@@ -96,8 +96,7 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
       }
     } catch (e) {
       printLog("getCurrentUser: failed");
-      printLog(e);
-      throw e;
+      rethrow;
     }
   }
 }

@@ -15,7 +15,7 @@ class ErrorResponse {
   });
 
   int code;
-  int message;
+  String message;
   String error;
   bool success;
   dynamic data;

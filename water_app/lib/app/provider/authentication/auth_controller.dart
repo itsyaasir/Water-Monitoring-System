@@ -43,9 +43,10 @@ class AuthenticationController extends GetxController with PrintLogMixin {
         Get.offNamed('/login');
       } else {
         printLog('Register failed');
+        final errorResponse = ErrorResponse.fromJson(response.body);
         Helpers.showSnackbar(
-            title: "Sign up Failed",
-            message: "Something went wrong, Please try again $response",
+            title: "Register Failed",
+            message: errorResponse.error,
             color: Colors.red,
             icon: const Icon(Icons.error));
       }
@@ -59,7 +60,7 @@ class AuthenticationController extends GetxController with PrintLogMixin {
     }
   }
 
-  void login({required String email, required String password}) async {
+  Future<void> login({required String email, required String password}) async {
     try {
       var response = await _authenticationService.login(
         email: email,
@@ -76,7 +77,7 @@ class AuthenticationController extends GetxController with PrintLogMixin {
 
         final successResponse = SuccessResponse.fromJson(response.body);
 
-        final token = successResponse.data.token;
+        final token = successResponse.data["token"];
 
         // Save the token in the local storage.
         _storage.write('token', token);
