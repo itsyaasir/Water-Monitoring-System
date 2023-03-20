@@ -89,8 +89,7 @@ class AuthenticationController extends GetxController with PrintLogMixin {
         final errorLoginResponse = ErrorResponse.fromJson(response.body);
         Helpers.showSnackbar(
             title: "Login Failed",
-            message:
-                "Something went wrong, Please try again ${errorLoginResponse.error}",
+            message: "${errorLoginResponse.error}",
             color: Colors.red,
             icon: const Icon(Icons.error));
       }
