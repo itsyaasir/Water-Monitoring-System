@@ -5,6 +5,8 @@ import "../controllers/login_controller.dart";
 import "../../../global_widgets/custom_text_field.dart";
 
 class LoginView extends GetView<LoginController> {
+  const LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> saveFormKey = GlobalKey<FormState>();
@@ -69,61 +71,16 @@ class LoginView extends GetView<LoginController> {
                     obscureText: controller.isTapped,
                   ),
                 ),
-
-                // Eye
-
                 const SizedBox(height: 20),
                 Center(
                   child: RoundedLoadingButton(
-                    controller: controller.roundedLoadingButtonOne,
+                    controller: controller.roundedLoadingButton,
                     onPressed: () {
                       if (saveFormKey.currentState!.validate()) {
                         controller.validateAndSubmit();
                       }
                     },
                     child: const Text("Sign In"),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () => {
-                    Get.dialog(
-                      Material(
-                        child: Center(
-                          child: Container(
-                            height: 200,
-                            width: 250,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  const Text("Enter your Email"),
-                                  CustomTextField(
-                                    name: "E-mail",
-                                    controller: controller.email,
-                                    validator: (email) => (!email!
-                                            .trim()
-                                            .contains("@"))
-                                        ? "Please enter a valid email address"
-                                        : null,
-                                  ),
-                                  const SizedBox(height: 20),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  },
-                  child: const Text(
-                    "Forgot Password ?",
-                    style: const TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 20),

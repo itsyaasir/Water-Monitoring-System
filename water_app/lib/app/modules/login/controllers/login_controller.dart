@@ -13,7 +13,7 @@ class LoginController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  RoundedLoadingButtonController roundedLoadingButtonOne =
+  RoundedLoadingButtonController roundedLoadingButton =
       RoundedLoadingButtonController();
   // IsTapped
   final _isTapped = true.obs;
@@ -21,20 +21,20 @@ class LoginController extends GetxController {
   set isTapped(bool value) => this._isTapped.value = value;
 
   void validateAndSubmit() {
-    roundedLoadingButtonOne.start();
+    roundedLoadingButton.start();
     _authenticationController.login(
       email: email.text.trim().toLowerCase(),
       password: password.text.trim(),
     );
 
-    // Get storage token
-    final token = _storage.read('token');
-    print("Token: $token ");
-    roundedLoadingButtonOne.stop();
+    roundedLoadingButton.success();
   }
 
   @override
-  void onInit() {
-    super.onInit();
+  void onClose() {
+    email.dispose();
+    password.dispose();
+    roundedLoadingButton.stop();
+    super.onClose();
   }
 }

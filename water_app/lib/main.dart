@@ -14,7 +14,7 @@ Future<void> main() async {
 
   runApp(
     GetMaterialApp(
-      title: "Water Page",
+      title: "Water App",
       getPages: AppPages.routes,
       home: const SplashPage(),
       initialBinding: SplashPageBindings(),

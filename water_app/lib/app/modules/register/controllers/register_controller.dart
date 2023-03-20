@@ -33,14 +33,13 @@ class RegisterController extends GetxController {
         confirmPassword: confirmPassword.text,
       );
 
-      loadingButtonController.stop();
-      // email.clear();
-      // password.clear();
-      // confirmPassword.clear();
-      // lastName.clear();
-      // firstName.clear();
+      loadingButtonController.success();
+      email.clear();
+      password.clear();
+      confirmPassword.clear();
+      lastName.clear();
+      firstName.clear();
     }
-    loadingButtonController.stop();
   }
 
   @override
@@ -50,6 +49,7 @@ class RegisterController extends GetxController {
     firstName.dispose();
     lastName.dispose();
     confirmPassword.dispose();
+    loadingButtonController.stop();
     super.onClose();
   }
 }
