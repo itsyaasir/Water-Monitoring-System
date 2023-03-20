@@ -128,7 +128,7 @@ class LoginView extends GetView<LoginController> {
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () => Get.offAllNamed("/signup"),
+                  onTap: () => Get.offAllNamed("/register"),
                   child: const Text(
                     "Don't have an account ? Click here",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
