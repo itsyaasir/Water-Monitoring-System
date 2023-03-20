@@ -113,7 +113,6 @@ class AuthenticationController extends GetxController with PrintLogMixin {
   }
 
   // Check if the user is logged in.
-
   bool get isLogged => _storage.read('token') != null;
 
   @override
