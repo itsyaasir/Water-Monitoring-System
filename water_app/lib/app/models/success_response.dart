@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-SignInReponse signInReponseFromJson(String str) =>
-    SignInReponse.fromJson(json.decode(str));
+SuccessResponse successResponseFromJson(String str) =>
+    SuccessResponse.fromJson(json.decode(str));
 
-String signInReponseToJson(SignInReponse data) => json.encode(data.toJson());
+String successResponseToJson(SuccessResponse data) =>
+    json.encode(data.toJson());
 
-class SignInReponse {
-  SignInReponse({
+class SuccessResponse {
+  SuccessResponse({
     required this.code,
     required this.data,
     required this.success,
@@ -16,7 +17,8 @@ class SignInReponse {
   Data data;
   bool success;
 
-  factory SignInReponse.fromJson(Map<String, dynamic> json) => SignInReponse(
+  factory SuccessResponse.fromJson(Map<String, dynamic> json) =>
+      SuccessResponse(
         code: json["code"],
         data: Data.fromJson(json["data"]),
         success: json["success"],

@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/signup_controller.dart';
+import '../controllers/register_controller.dart';
 
-class SignupView extends GetView<SignupController> {
-  const SignupView({Key? key}) : super(key: key);
+class RegisterView extends GetView<RegisterController> {
+  const RegisterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SignupView'),
+        title: const Text('RegisterView'),
         centerTitle: true,
       ),
       body: const Center(
         child: Text(
-          'SignupView is working',
+          'RegisterView is working',
           style: TextStyle(fontSize: 20),
         ),
       ),

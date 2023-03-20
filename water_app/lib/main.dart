@@ -8,6 +8,7 @@ import 'app/routes/app_pages.dart';
 Future<void> main() async {
   // Initialize GetStorage
   await GetStorage.init();
+
   runApp(
     GetMaterialApp(
       title: "Application",

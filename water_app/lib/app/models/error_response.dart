@@ -1,17 +1,12 @@
-// To parse this JSON data, do
-//
-//     final errorSignInResponse = errorSignInResponseFromJson(jsonString);
-
 import 'dart:convert';
 
-ErrorSignInResponse errorSignInResponseFromJson(String str) =>
-    ErrorSignInResponse.fromJson(json.decode(str));
+ErrorResponse errorResponseFromJson(String str) =>
+    ErrorResponse.fromJson(json.decode(str));
 
-String errorSignInResponseToJson(ErrorSignInResponse data) =>
-    json.encode(data.toJson());
+String errorResponseToJson(ErrorResponse data) => json.encode(data.toJson());
 
-class ErrorSignInResponse {
-  ErrorSignInResponse({
+class ErrorResponse {
+  ErrorResponse({
     required this.code,
     required this.message,
     required this.error,
@@ -25,8 +20,7 @@ class ErrorSignInResponse {
   bool success;
   dynamic data;
 
-  factory ErrorSignInResponse.fromJson(Map<String, dynamic> json) =>
-      ErrorSignInResponse(
+  factory ErrorResponse.fromJson(Map<String, dynamic> json) => ErrorResponse(
         code: json["code"],
         message: json["message"],
         error: json["error"],

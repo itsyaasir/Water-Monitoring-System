@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class SignupController extends GetxController {
+class RegisterController extends GetxController {
   //TODO: Implement SignupController
 
   final count = 0.obs;

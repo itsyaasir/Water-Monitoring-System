@@ -5,14 +5,14 @@ import 'package:water_app/app/provider/authentication/auth_service.dart';
 import 'package:water_app/app/utils/helper.dart';
 import 'package:water_app/app/utils/login_mixin.dart';
 
-import '../../models/Authentication/error/error_login_response.dart';
-import '../../models/Authentication/success/success_login_reponse.dart';
+import '../../models/error_response.dart';
+import '../../models/success_response.dart';
 
 class AuthenticationController extends GetxController with PrintLogMixin {
   final AuthenticationService _authenticationService = AuthenticationService();
 
   // We need to store the token in the local storage.
-  GetStorage _storage = GetStorage();
+  final GetStorage _storage = GetStorage();
 
   @override
   void onInit() {
@@ -74,9 +74,9 @@ class AuthenticationController extends GetxController with PrintLogMixin {
             color: Colors.green,
             icon: const Icon(Icons.check_circle));
 
-        final signInReponse = SignInReponse.fromJson(response.body);
+        final successResponse = SuccessResponse.fromJson(response.body);
 
-        final token = signInReponse.data.token;
+        final token = successResponse.data.token;
 
         // Save the token in the local storage.
         _storage.write('token', token);
@@ -85,7 +85,7 @@ class AuthenticationController extends GetxController with PrintLogMixin {
         Get.offNamed('/home');
       } else {
         printLog('Login failed');
-        final errorLoginResponse = ErrorSignInResponse.fromJson(response.body);
+        final errorLoginResponse = ErrorResponse.fromJson(response.body);
         Helpers.showSnackbar(
             title: "Login Failed",
             message:

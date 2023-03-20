@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:water_app/app/utils/login_mixin.dart';
 
-import '../../models/Authentication/success/success_login_reponse.dart';
+import '../../models/success_response.dart';
 
-import '../../models/Authentication/error/error_login_response.dart';
+import '../../models/error_response.dart';
 
 const String baseUrl = "http://localhost:3000/api/v1/auth";
 
@@ -86,11 +86,11 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
     try {
       if (response.statusCode == 200) {
         printLog("getCurrentUser: success");
-        final signInReponse = signInReponseFromJson(response.body);
+        final signInReponse = successResponseFromJson(response.body);
         return signInReponse.data.token;
       } else {
         printLog("getCurrentUser: failed");
-        final error = errorSignInResponseFromJson(response.body);
+        final error = errorResponseFromJson(response.body);
         printLog(error);
         return error.error;
       }
