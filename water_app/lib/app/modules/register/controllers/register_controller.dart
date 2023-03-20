@@ -31,6 +31,8 @@ class RegisterController extends GetxController {
         email: email.text.trim().toLowerCase(),
         password: password.text.trim(),
         confirmPassword: confirmPassword.text,
+        firstName: firstName.text.trim(),
+        lastName: lastName.text.trim(),
       );
 
       loadingButtonController.success();

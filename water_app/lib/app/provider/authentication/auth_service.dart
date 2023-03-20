@@ -11,7 +11,9 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
   Future<Response> register(
       {required String email,
       required String password,
-      required String confirmPassword}) async {
+      required String confirmPassword,
+      required String firstName,
+      required String lastName}) async {
     printLog("registerUser");
     final response = await post(
       "$baseUrl/register",
@@ -19,7 +21,10 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
         "email": email,
         "password": password,
         "confirmPassword": password,
+        "firstName": firstName,
+        "lastName": lastName,
       },
+      contentType: "application/json",
     );
 
     try {
@@ -45,6 +50,7 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
         "email": email,
         "password": password,
       },
+      contentType: "application/json",
     );
 
     try {

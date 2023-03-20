@@ -25,12 +25,16 @@ class AuthenticationController extends GetxController with PrintLogMixin {
   Future<void> register(
       {required String email,
       required String password,
-      required String confirmPassword}) async {
+      required String confirmPassword,
+      required String firstName,
+      required String lastName}) async {
     try {
       var response = await _authenticationService.register(
         email: email,
         password: password,
         confirmPassword: confirmPassword,
+        firstName: firstName,
+        lastName: lastName,
       );
 
       if (response.statusCode == 200) {
