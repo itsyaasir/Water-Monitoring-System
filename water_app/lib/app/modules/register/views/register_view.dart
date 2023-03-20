@@ -104,7 +104,7 @@ class RegisterView extends GetView<RegisterController> {
                       labelText: "Confirm Password",
                       contentPadding: const EdgeInsets.all(20),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       fillColor: Colors.white54,
                       filled: true,
