@@ -10,34 +10,32 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(
-              'HomeView is working',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.toNamed("/register");
-                },
-                child: const Text("Signup")),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.toNamed("/login");
-                },
-                child: const Text("Login")),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Text(
+                'Welcome',
+                style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed("/register");
+                  },
+                  child: const Text("Signup")),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed("/login");
+                  },
+                  child: const Text("Login")),
+            ],
+          ),
         ),
       ),
     );

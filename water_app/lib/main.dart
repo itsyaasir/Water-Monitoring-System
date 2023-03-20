@@ -31,7 +31,7 @@ class SplashPage extends StatelessWidget {
       body: Center(
         child: Get.find<AuthenticationController>().isLogged
             ? const HomeView()
-            : LoginView(),
+            : const LoginView(),
       ),
     );
   }

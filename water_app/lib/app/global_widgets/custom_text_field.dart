@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? Function(String?)? onChanged;
   const CustomTextField({
+    super.key,
     @required this.name,
     @required this.controller,
     this.keyboardType,
@@ -24,9 +25,9 @@ class CustomTextField extends StatelessWidget {
           labelText: name,
           contentPadding: const EdgeInsets.all(20),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(16),
           ),
-          fillColor: Colors.blue[50],
+          fillColor: Colors.white54,
           filled: true,
           hintText: name,
         ),

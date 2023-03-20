@@ -11,6 +11,7 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -22,15 +23,26 @@ class RegisterView extends GetView<RegisterController> {
           child: Form(
             key: controller.saveFormKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  "Register",
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  "Hi! there",
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w200,
+                      color: Colors.grey,
+                      letterSpacing: 1.0),
                 ),
+                const Text(
+                  "Welcome",
+                  style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w200,
+                      letterSpacing: 1.0,
+                      color: Colors.grey),
+                ),
+                const SizedBox(height: 80),
                 CustomTextField(
                   name: "First Name",
                   controller: controller.firstName,
@@ -60,15 +72,15 @@ class RegisterView extends GetView<RegisterController> {
                           labelText: "Password",
                           contentPadding: const EdgeInsets.all(20),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(16),
                           ),
-                          fillColor: Colors.blue[50],
+                          fillColor: Colors.white54,
                           filled: true,
                           hintText: "Password",
                           suffixIcon: IconButton(
                             icon: const Icon(
                               Icons.remove_red_eye,
-                              color: Colors.blue,
+                              color: Colors.grey,
                             ),
                             onPressed: () {
                               controller.isTapped = !controller.isTapped;
@@ -94,7 +106,7 @@ class RegisterView extends GetView<RegisterController> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      fillColor: Colors.blue[50],
+                      fillColor: Colors.white54,
                       filled: true,
                       hintText: "Confirm Password",
                     ),
@@ -112,17 +124,23 @@ class RegisterView extends GetView<RegisterController> {
                 const SizedBox(height: 20),
                 Center(
                   child: RoundedLoadingButton(
+                    color: Colors.black,
+                    width: 500,
+                    borderRadius: 20,
                     controller: controller.loadingButtonController,
                     onPressed: controller.validateAndSave,
-                    child: const Text("Sign Up"),
+                    child: const Text("Register"),
                   ),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () => Get.offAllNamed("/login"),
-                  child: const Text(
-                    "Already a User ? Click here",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  child: const Center(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.normal),
+                    ),
                   ),
                 ),
               ],

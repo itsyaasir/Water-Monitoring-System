@@ -20,14 +20,22 @@ class LoginController extends GetxController {
   bool get isTapped => this._isTapped.value;
   set isTapped(bool value) => this._isTapped.value = value;
 
-  void validateAndSubmit() {
+  void validateAndSubmit() async {
     roundedLoadingButton.start();
-    _authenticationController.login(
-      email: email.text.trim().toLowerCase(),
-      password: password.text.trim(),
-    );
+    try {
+      await _authenticationController.login(
+        email: email.text.trim().toLowerCase(),
+        password: password.text.trim(),
+      );
+      roundedLoadingButton.success();
+    } catch (e) {
+      roundedLoadingButton.error();
+    }
 
-    roundedLoadingButton.success();
+    roundedLoadingButton.error();
+
+    await Future.delayed(const Duration(seconds: 2));
+    roundedLoadingButton.reset();
   }
 
   @override

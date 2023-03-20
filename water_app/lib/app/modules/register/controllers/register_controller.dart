@@ -27,20 +27,22 @@ class RegisterController extends GetxController {
   void validateAndSave() async {
     if (saveFormKey.currentState!.validate()) {
       loadingButtonController.start();
-      await _authenticationController.register(
-        email: email.text.trim().toLowerCase(),
-        password: password.text.trim(),
-        confirmPassword: confirmPassword.text,
-        firstName: firstName.text.trim(),
-        lastName: lastName.text.trim(),
-      );
+      try {
+        await _authenticationController.register(
+          email: email.text.trim().toLowerCase(),
+          password: password.text.trim(),
+          confirmPassword: confirmPassword.text,
+          firstName: firstName.text.trim(),
+          lastName: lastName.text.trim(),
+        );
 
-      loadingButtonController.success();
-      email.clear();
-      password.clear();
-      confirmPassword.clear();
-      lastName.clear();
-      firstName.clear();
+        loadingButtonController.success();
+      } catch (e) {
+        loadingButtonController.error();
+
+        await Future.delayed(const Duration(seconds: 2));
+        loadingButtonController.reset();
+      }
     }
   }
 

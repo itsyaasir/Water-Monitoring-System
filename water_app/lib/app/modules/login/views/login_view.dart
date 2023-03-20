@@ -11,6 +11,8 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     GlobalKey<FormState> saveFormKey = GlobalKey<FormState>();
     return Scaffold(
+      // very light grey
+      backgroundColor: const Color(0xffF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -22,16 +24,26 @@ class LoginView extends GetView<LoginController> {
           child: Form(
             key: saveFormKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  "Log In",
+                  "Hello,",
                   style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 40,
+                      fontWeight: FontWeight.w200,
+                      color: Colors.grey,
+                      letterSpacing: 1.0),
                 ),
-                const SizedBox(height: 20),
+                const Text(
+                  "Welcome Back",
+                  style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w200,
+                      letterSpacing: 1.0,
+                      color: Colors.grey),
+                ),
+                const SizedBox(height: 100),
                 CustomTextField(
                   name: "E-mail",
                   controller: controller.email,
@@ -46,15 +58,15 @@ class LoginView extends GetView<LoginController> {
                       labelText: "Password",
                       contentPadding: const EdgeInsets.all(20),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      fillColor: Colors.blue[50],
+                      fillColor: Colors.white54,
                       filled: true,
                       hintText: "Password",
                       suffixIcon: IconButton(
                         icon: const Icon(
                           Icons.remove_red_eye,
-                          color: Colors.blue,
+                          color: Colors.grey,
                         ),
                         onPressed: () {
                           controller.isTapped = !controller.isTapped;
@@ -75,20 +87,26 @@ class LoginView extends GetView<LoginController> {
                 Center(
                   child: RoundedLoadingButton(
                     controller: controller.roundedLoadingButton,
+                    color: Colors.black,
+                    width: 500,
+                    borderRadius: 20,
                     onPressed: () {
                       if (saveFormKey.currentState!.validate()) {
                         controller.validateAndSubmit();
                       }
                     },
-                    child: const Text("Sign In"),
+                    child: const Text("Login"),
                   ),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () => Get.offAllNamed("/register"),
-                  child: const Text(
-                    "Don't have an account ? Click here",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  child: const Center(
+                    child: Text(
+                      "Create account",
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.normal),
+                    ),
                   ),
                 )
               ],

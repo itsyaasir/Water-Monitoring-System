@@ -7,8 +7,8 @@ export const registerSchema = {
     email: Joi.string().email().trim().required(),
     password: Joi.string().required(),
     confirmPassword: Joi.string().required(),
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
+    firstName: Joi.string().trim().required(),
+    lastName: Joi.string().trim().required(),
   }),
 };
 
