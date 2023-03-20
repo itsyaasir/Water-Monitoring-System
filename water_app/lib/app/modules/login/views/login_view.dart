@@ -60,9 +60,20 @@ class LoginView extends GetView<LoginController> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                      ),
                       fillColor: Colors.white54,
                       filled: true,
                       hintText: "Password",
+                      hintStyle: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                      ),
                       suffixIcon: IconButton(
                         icon: const Icon(
                           Icons.remove_red_eye,

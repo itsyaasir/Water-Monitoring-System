@@ -27,6 +27,13 @@ class CustomTextField extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(
+              color: Colors.black,
+              width: 1,
+            ),
+          ),
           fillColor: Colors.white54,
           filled: true,
           hintText: name,

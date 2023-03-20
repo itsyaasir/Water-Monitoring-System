@@ -7,7 +7,8 @@ class CustomForm extends StatelessWidget {
   final String? Function(String?)? validator;
   final ValueChanged<dynamic>? onChanged;
   const CustomForm(
-      {@required this.name,
+      {super.key,
+      @required this.name,
       @required this.onChanged,
       this.keyboardType,
       this.validator,
@@ -21,9 +22,16 @@ class CustomForm extends StatelessWidget {
           labelText: name,
           contentPadding: const EdgeInsets.all(20),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(16),
           ),
-          fillColor: Colors.blue[50],
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(
+              color: Colors.black,
+              width: 1,
+            ),
+          ),
+          fillColor: Colors.white54,
           filled: true,
           hintText: name,
         ),
