@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:water_app/app/utils/login_mixin.dart';
 
 import '../../models/success_response.dart';
@@ -83,25 +84,16 @@ class AuthenticationService extends GetConnect with PrintLogMixin {
     }
   }
 
-  Future<String> getCurrentUser() async {
+  Future<dynamic> getCurrentUser() async {
     printLog("getCurrentUser");
-    final response = await get(
-      "$baseUrl/current",
-    );
+    final response = await get("$baseUrl/current",
+        headers: Map.from({
+          "x-token": "${GetStorage().read("token")}",
+        }));
 
     try {
-      if (response.statusCode == 200) {
-        printLog("getCurrentUser: success");
-        final successResponse = successResponseFromJson(response.body);
-        return successResponse.data;
-      } else {
-        printLog("getCurrentUser: failed");
-        final error = errorResponseFromJson(response.body);
-        printLog(error);
-        return error.error;
-      }
+      return response;
     } catch (e) {
-      printLog("getCurrentUser: failed");
       rethrow;
     }
   }

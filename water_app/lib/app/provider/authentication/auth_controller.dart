@@ -115,6 +115,44 @@ class AuthenticationController extends GetxController with PrintLogMixin {
     Get.offNamed('/login');
   }
 
+  Future<Map<String, String>> getCurrentUser() async {
+    try {
+      var response = await _authenticationService.getCurrentUser();
+
+      if (response.statusCode == 200) {
+        printLog('Get current user success');
+        final successResponse = SuccessResponse.fromJson(response.body).data;
+        final String fName = successResponse["firstName"];
+        final String lName = successResponse["lastName"];
+
+        final user = {
+          "firstName": fName,
+          "lastName": lName,
+        };
+
+        return user;
+      } else {
+        printLog('Get current user failed');
+        final errorResponse = ErrorResponse.fromJson(response.body);
+
+        Helpers.showSnackbar(
+            title: "Get current user Failed",
+            message: errorResponse.error,
+            color: Colors.red,
+            icon: const Icon(Icons.error));
+        return {};
+      }
+    } catch (e) {
+      printLog('Get current user failed');
+      Helpers.showSnackbar(
+          title: "Get current user Failed",
+          message: "Something went wrong, Please try again $e",
+          color: Colors.red,
+          icon: const Icon(Icons.error));
+      return {};
+    }
+  }
+
   // Check if the user is logged in.
   bool get isLogged => _storage.read('token') != null;
 

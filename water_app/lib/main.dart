@@ -6,6 +6,7 @@ import 'package:water_app/app/modules/home/views/home_view.dart';
 import 'package:water_app/app/modules/login/controllers/login_controller.dart';
 import 'package:water_app/app/modules/login/views/login_view.dart';
 
+import 'app/modules/home/controllers/home_controller.dart';
 import 'app/provider/authentication/auth_controller.dart';
 import 'app/routes/app_pages.dart';
 
@@ -43,5 +44,6 @@ class SplashPageBindings extends Bindings {
   void dependencies() {
     Get.put(AuthenticationController());
     Get.lazyPut<LoginController>(() => LoginController());
+    Get.lazyPut<HomeController>(() => HomeController());
   }
 }

@@ -10,21 +10,10 @@ class HomeController extends GetxController {
 
   GetStorage storage = GetStorage();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  // isOn
+  var isOn = false.obs;
+  // setter
+  void setIsOn(bool value) => isOn.value = value;
+  // getter
+  bool get getIsOn => isOn.value;
 }
