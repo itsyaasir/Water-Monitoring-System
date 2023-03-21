@@ -21,13 +21,3 @@ export const errorResponse = (
     data: null,
   });
 };
-
-export const validateFields = (object, fields) => {
-  const errors = {};
-  fields.forEach((field) => {
-    if (!object[field]) {
-      errors[field] = `${field} is required`;
-    }
-  });
-  return errors.length ? `${errors.join(', ')} are required fields.` : null;
-};

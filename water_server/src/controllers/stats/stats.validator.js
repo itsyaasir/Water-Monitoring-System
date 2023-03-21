@@ -9,8 +9,8 @@ export const statsSchema = {
 };
 
 export const statsRangeSchema = {
-  body: Joi.object({
-    start: Joi.date().required(),
-    end: Joi.date().required(),
+  query: Joi.object({
+    start: Joi.string().required(),
+    end: Joi.string().required(),
   }),
 };

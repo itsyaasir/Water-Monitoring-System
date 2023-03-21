@@ -68,6 +68,16 @@ class HomeView extends GetView<HomeController> {
               const SizedBox(height: 30),
               const WaterTankCard(waterLevel: 100),
               const SizedBox(height: 20),
+
+              // Button to go to /stats
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed('/stats');
+                  },
+                  child: const Text('Go to Stats'),
+                ),
+              ),
               // Row(
               //   children: const [
               //     Text(
