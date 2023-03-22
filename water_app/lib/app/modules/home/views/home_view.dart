@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:water_app/app/global_widgets/animated_switch.dart';
-import 'package:water_app/app/global_widgets/water_purity.dart';
-import 'package:water_app/app/global_widgets/water_tank.dart';
+import 'package:water_app/app/global_widgets/custom_switch.dart';
 import 'package:water_app/app/provider/authentication/auth_controller.dart';
+import 'package:water_app/app/provider/stats/stats_controller.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -27,6 +25,44 @@ class HomeView extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                children: [
+                  const Text(
+                    "Your Dashboard",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  PopupMenuButton(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    icon: const Icon(Icons.more_vert_outlined),
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        value: 1,
+                        child: ListTile(
+                          title: Text("Logout"),
+                          // trailing: Icon(Icons.logout),
+
+                          // Icon - exiting door
+                          trailing: Icon(Icons.keyboard_double_arrow_right),
+                        ),
+                      ),
+                    ],
+                    onSelected: (value) {
+                      if (value == 1) {
+                        Get.find<AuthenticationController>().logout();
+                      }
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
               FutureBuilder(
                   future: Get.find<AuthenticationController>().getCurrentUser(),
                   builder: (context, snapshot) {
@@ -34,15 +70,18 @@ class HomeView extends GetView<HomeController> {
                       final fName = snapshot.data!["firstName"];
                       return Row(
                         children: [
-                          const Text(
-                            "Hi,",
-                            style: TextStyle(fontSize: 20, color: Colors.grey),
+                          Text(
+                            "${_getTimeAndSetGreeting()}, ",
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.normal),
                           ),
                           Text(
                             " $fName!",
                             style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
+                                fontSize: 15,
+                                color: Colors.grey,
                                 fontWeight: FontWeight.normal),
                           ),
                         ],
@@ -52,55 +91,265 @@ class HomeView extends GetView<HomeController> {
                     }
                   }),
               const SizedBox(height: 20),
-              // Switch on/off ardunio
-
-              Center(child: StatefulBuilder(
-                builder: (context, setState) {
-                  return AnimatedButton(
-                      onPressed: () {
-                        setState(() {
-                          controller.setIsOn(!controller.getIsOn);
-                        });
-                      },
-                      isOn: controller.getIsOn);
+              Obx(
+                () => AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    child: controller.getArduinoConnected
+                        ? Row(
+                            children: [
+                              const Text(
+                                "Arduino Connected",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const Spacer(),
+                              Container(
+                                height: 35,
+                                width: 35,
+                                decoration: const BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(32.0),
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              const Text(
+                                "Arduino Disconnected",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const Spacer(),
+                              Container(
+                                height: 35,
+                                width: 35,
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(32.0),
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          )),
+              ),
+              const SizedBox(height: 20),
+              FutureBuilder(
+                future: Get.find<StatsProvider>().getLatestStats(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data;
+                    return Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Water Level',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            child: LinearProgressIndicator(
+                              value: 0.8,
+                              backgroundColor: Colors.grey.withOpacity(0.5),
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.blue),
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Text(
+                            'pH',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '${data!["ph"]}',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.yellow.shade900,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Text(
+                            'Temperature',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            '${data["temperature"]}˚',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Text(
+                            'Turbidity',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${data["turb"]}',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black.withOpacity(0.5),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const Text('Loading...');
+                  }
                 },
-              )),
-              const SizedBox(height: 30),
-              const WaterTankCard(waterLevel: 100),
+              ),
+
               const SizedBox(height: 20),
 
-              // Button to go to /stats
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed('/stats');
-                  },
-                  child: const Text('Go to Stats'),
-                ),
+              // Switch the arduino connection on and off
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Text(
+                    "Arduino Connection",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Obx(
+                    () => CustomSwitch(
+                        value: controller.getArduinoConnected,
+                        onChanged: (val) =>
+                            {controller.setArduinoConnected(val)}),
+                  ),
+                ],
               ),
-              // Row(
-              //   children: const [
-              //     Text(
-              //       "Water Tank Level",
-              //       style: TextStyle(
-              //           fontSize: 20,
-              //           color: Colors.black,
-              //           fontWeight: FontWeight.normal),
-              //     ),
-              //     Spacer(),
-              //     // Text(
-              //     //   "100%",
-              //     //   style: TextStyle(
-              //     //       fontSize: 20,
-              //     //       color: Colors.black,
-              //     //       fontWeight: FontWeight.normal),
-              //     // ),
-              //   ],
-              // ),
+
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Text(
+                    "Water Pump",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Obx(
+                    () => CustomSwitch(
+                        value: controller.getWaterPump,
+                        onChanged: (val) => {controller.setWaterPump(val)}),
+                  ),
+                ],
+              ),
+
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Take a look at your stats",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => Get.toNamed("/stats"),
+                    child: Container(
+                      height: 35,
+                      width: 35,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(32.0),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+String _getTimeAndSetGreeting() {
+  final hour = DateTime.now().hour;
+  if (hour < 12) {
+    return "Good Morning";
+  } else if (hour < 17) {
+    return "Good Afternoon";
+  } else if (hour < 20) {
+    return "Good Evening";
+  } else {
+    return "Good Night";
   }
 }

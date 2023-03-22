@@ -16,4 +16,18 @@ class HomeController extends GetxController {
   void setIsOn(bool value) => isOn.value = value;
   // getter
   bool get getIsOn => isOn.value;
+
+  //arduinoConnected
+  var arduinoConnected = false.obs;
+  // setter
+  void setArduinoConnected(bool value) => arduinoConnected.value = value;
+  // getter
+  bool get getArduinoConnected => arduinoConnected.value;
+
+  // Water pump
+  var waterPump = false.obs;
+  // setter
+  void setWaterPump(bool value) => waterPump.value = value;
+  // getter
+  bool get getWaterPump => waterPump.value;
 }

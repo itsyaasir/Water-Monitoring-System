@@ -23,15 +23,28 @@ class StatsView extends GetView<StatsController> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Hi!",
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w200,
-                        color: Colors.black,
-                        letterSpacing: 1.0),
+                  // Back Button
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => Get.back(),
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "Stats",
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 10),
+
+                  const SizedBox(height: 10),
                   Text(
                     "Here are your stats",
                     style: TextStyle(
@@ -40,10 +53,9 @@ class StatsView extends GetView<StatsController> {
                         color: Colors.grey.shade900,
                         letterSpacing: 0.5),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 5),
                 ],
               ),
-              const SizedBox(height: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -84,7 +96,9 @@ class StatsView extends GetView<StatsController> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text("${DateFormat("dd-MM-yyyy").format(DateTime.now())}"),
+                  Text(
+                    "Today, ${DateFormat("dd MMMM yyyy").format(DateTime.now())}",
+                  ),
                 ],
               ),
               const SizedBox(
