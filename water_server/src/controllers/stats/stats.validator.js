@@ -5,6 +5,7 @@ export const statsSchema = {
     temperature: Joi.number().required(),
     ph: Joi.number().required(),
     turb: Joi.number().required(),
+    waterLevel: Joi.number().required(),
   }),
 };
 
