@@ -14,7 +14,7 @@ const router = express.Router();
  * @access Private
  * */
 router.post(
-  '/',
+  '/new',
   validate(statsValidator.statsSchema),
   requireAuth,
   statsController.postStats,
@@ -25,13 +25,14 @@ router.post(
  * @desc Get all stats
  * @access Private
  * */
-router.get('/', requireAuth, statsController.getStats);
+router.get('/all', requireAuth, statsController.getStats);
 
 /**
  * @route POST /api/stats/range
  * @Body start, end
  * @desc Get stats in a range
  * @access Private
+ *
  * */
 router.get(
   '/range',

@@ -10,21 +10,24 @@ class HomeController extends GetxController {
 
   GetStorage storage = GetStorage();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  // isOn
+  var isOn = false.obs;
+  // setter
+  void setIsOn(bool value) => isOn.value = value;
+  // getter
+  bool get getIsOn => isOn.value;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  //arduinoConnected
+  var arduinoConnected = false.obs;
+  // setter
+  void setArduinoConnected(bool value) => arduinoConnected.value = value;
+  // getter
+  bool get getArduinoConnected => arduinoConnected.value;
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  // Water pump
+  var waterPump = false.obs;
+  // setter
+  void setWaterPump(bool value) => waterPump.value = value;
+  // getter
+  bool get getWaterPump => waterPump.value;
 }

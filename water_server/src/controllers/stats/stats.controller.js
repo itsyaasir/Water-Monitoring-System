@@ -10,6 +10,7 @@ export const postStats = async (req, res) => {
     req.body.userId = req.user.id;
 
     const stats = await Stats.create(req.body);
+
     return successResponse(req, res, stats, 201);
   } catch (error) {
     logger.error(error);
@@ -35,7 +36,7 @@ export const getStats = async (req, res) => {
 export const getStatsRange = async (req, res) => {
   logger.info('Getting stats range');
   try {
-    const { start, end } = req.body;
+    const { start, end } = req.query;
 
     const stats = await Stats.findAll({
       where: {

@@ -24,6 +24,7 @@ module.exports = {
       temperature: { type: Sequelize.FLOAT, allowNull: false },
       ph: Sequelize.FLOAT,
       turb: Sequelize.FLOAT,
+      waterLevel: Sequelize.FLOAT,
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -43,7 +44,7 @@ module.exports = {
      * Add reverting commands here.
      *
      * Example:
-    */
+     */
     await queryInterface.dropTable('stats');
   },
 };

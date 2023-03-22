@@ -64,7 +64,8 @@ export const login = async (req, res) => {
     }
 
     // Generate token
-    const token = jwt.sign({ id: user.id, email: user.email, createdAt: new Date() }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    // eslint-disable-next-line max-len
+    const token = jwt.sign({ id: user.id, email: user.email, createdAt: new Date() }, process.env.JWT_SECRET);
 
     const data = {
       token,

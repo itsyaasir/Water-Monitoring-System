@@ -5,12 +5,13 @@ export const statsSchema = {
     temperature: Joi.number().required(),
     ph: Joi.number().required(),
     turb: Joi.number().required(),
+    waterLevel: Joi.number().required(),
   }),
 };
 
 export const statsRangeSchema = {
-  body: Joi.object({
-    start: Joi.date().required(),
-    end: Joi.date().required(),
+  query: Joi.object({
+    start: Joi.string().required(),
+    end: Joi.string().required(),
   }),
 };

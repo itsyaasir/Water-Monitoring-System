@@ -11,7 +11,6 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     GlobalKey<FormState> saveFormKey = GlobalKey<FormState>();
     return Scaffold(
-      // very light grey
       backgroundColor: const Color(0xffF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
