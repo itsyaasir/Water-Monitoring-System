@@ -183,8 +183,11 @@ int sendData()
   const size_t capacity = JSON_OBJECT_SIZE(2);
   DynamicJsonBuffer jsonBuffer(capacity);
   JsonObject &root = jsonBuffer.createObject();
-  root["Tank Level"] = percentage;
-  root["CHL level"] = percentage1;
+
+  root["temperature"] = 22;
+  root["ph"] = 7.5;
+  root["turb"] = 0.5;
+  root["waterLevel"] = distance;
 
   // Serialize the JSON object to a String
   String requestBody;
@@ -211,8 +214,4 @@ int sendData()
 
   // Close the connection
   httpClient.endRequest();
-
-  // Print the data to the serial monitor
-  Serial.println("Tank Level: " + String(percentage));
-  Serial.println("CHL Level: " + String(percentage1));
 }
