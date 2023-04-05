@@ -1,43 +1,40 @@
 import { UUIDV4, NOW, Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
-  class User extends Model {
+  class Pumps extends Model {
     static associate(models) {
-      User.hasOne(models.Stats, {
+      Pumps.belongsTo(models.User, {
         foreignKey: 'userId',
-        as: 'stats',
-      });
-
-      User.hasOne(models.Pumps, {
-        foreignKey: 'userId',
-        as: 'pumps',
+        onDelete: 'CASCADE',
+        as: 'user',
       });
     }
   }
 
-  User.init(
+  Pumps.init(
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: UUIDV4,
         primaryKey: true,
       },
-      firstName: {
-        type: DataTypes.STRING,
+      userId: {
+        type: DataTypes.UUID,
         allowNull: false,
+        references: {
+          model: 'User',
+          key: 'id',
+        },
       },
-      lastName: {
-        type: DataTypes.STRING,
+      waterStatus: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
-      email: {
-        type: DataTypes.STRING,
+      treatmentStatus: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: false,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -52,11 +49,11 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
-      tableName: 'users',
+      modelName: 'Pumps',
+      tableName: 'pumps',
       freezeTableName: true,
     }
   );
 
-  return User;
+  return Pumps;
 };
