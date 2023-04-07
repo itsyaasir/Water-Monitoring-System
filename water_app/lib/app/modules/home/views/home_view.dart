@@ -147,10 +147,28 @@ class HomeView extends GetView<HomeController> {
                           const SizedBox(height: 10),
                           SizedBox(
                             child: LinearProgressIndicator(
-                              value: 0.8,
+                              value: double.parse(data!["waterLevel"]!) / 100,
                               backgroundColor: Colors.grey.withOpacity(0.5),
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                   Colors.blue),
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Text(
+                            'Chlorine Level',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            child: LinearProgressIndicator(
+                              value: 0.10,
+                              backgroundColor: Colors.grey.withOpacity(0.5),
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.green),
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -238,7 +256,7 @@ class HomeView extends GetView<HomeController> {
                   const Spacer(),
                   Obx(
                     () => CustomSwitch(
-                        value: controller.waterPump.value,
+                        value: controller.getWaterPumpStatus(),
                         onChanged: (val) => {controller.toggleWaterPump()}),
                   ),
                 ],
@@ -256,7 +274,7 @@ class HomeView extends GetView<HomeController> {
                   const Spacer(),
                   Obx(
                     () => CustomSwitch(
-                        value: controller.treatmentPump.value,
+                        value: controller.getTreatmentPumpStatus(),
                         onChanged: (val) => {controller.toggleTreatmentPump()}),
                   ),
                 ],

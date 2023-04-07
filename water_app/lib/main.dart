@@ -46,7 +46,7 @@ class SplashPageBindings extends Bindings {
   void dependencies() {
     Get.put(AuthenticationController());
     Get.lazyPut<LoginController>(() => LoginController());
-    Get.lazyPut<HomeController>(() => HomeController());
+    Get.put<HomeController>(HomeController());
     Get.lazyPut(() => StatsProvider());
     Get.lazyPut(() => PumpsProvider());
   }

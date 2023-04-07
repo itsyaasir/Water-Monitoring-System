@@ -4,10 +4,12 @@ import 'package:water_app/app/provider/authentication/auth_controller.dart';
 import 'package:water_app/app/provider/pumps/pumps_controller.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  AuthenticationController authenticationController =
-      AuthenticationController();
+  @override
+  void onInit() {
+    super.onInit();
+    setWaterPumpStatus();
+    setTreatmentPumpStatus();
+  }
 
   PumpsProvider pumpsProvider = PumpsProvider();
 
@@ -27,15 +29,21 @@ class HomeController extends GetxController {
     treatmentPump.value = !treatmentPump.value;
   }
 
-  Future<bool> getWaterPumpStatus() async {
+  void setWaterPumpStatus() async {
     final waterStatus = await pumpsProvider.getWaterStatus();
     waterPump.value = waterStatus;
-    return waterStatus;
   }
 
-  Future<bool> getTreatmentPumpStatus() async {
+  void setTreatmentPumpStatus() async {
     final treatmentStatus = await pumpsProvider.getTreatmentStatus();
     treatmentPump.value = treatmentStatus;
-    return treatmentStatus;
+  }
+
+  bool getWaterPumpStatus() {
+    return waterPump.value;
+  }
+
+  bool getTreatmentPumpStatus() {
+    return treatmentPump.value;
   }
 }

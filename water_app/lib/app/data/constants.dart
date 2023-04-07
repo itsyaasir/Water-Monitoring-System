@@ -3,6 +3,7 @@ class StatsValues {
     "Water Level",
     "Temperature",
     "pH",
+    "Turbidity",
     "Date"
   ];
 

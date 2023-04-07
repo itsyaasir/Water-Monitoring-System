@@ -41,14 +41,18 @@ const setUpWorkerProcesses = () => {
 
   // If any of the worker process dies, then start a new one by simply forking another one
   cluster.on('exit', (worker, code, signal) => {
-    console.log(`Worker ${worker.process.pid} died with code: ${code}, and signal: ${signal}`);
+    console.log(
+      `Worker ${worker.process.pid} died with code: ${code}, and signal: ${signal}`
+    );
     console.log('Starting a new worker');
     cluster.fork();
     workers.push(cluster.fork());
     const newWorker = workers[workers.length - 1];
     newWorker.on('message', (message) => {
       // use chalk
-      console.log(chalk.bgRed(`Message from worker ${newWorker.process.pid}: ${message}`));
+      console.log(
+        chalk.bgRed(`Message from worker ${newWorker.process.pid}: ${message}`)
+      );
     });
   });
 };
@@ -62,9 +66,7 @@ const setUpExpress = () => {
     console.log(chalk.greenBright(`Server is running on port ${PORT}`));
   });
 
-  app.on('error', (
-    appErr,
-  ) => {
+  app.on('error', (appErr) => {
     console.error(chalk.bgRed(`app error: ${appErr.stack}`));
     console.error(chalk.bgRed(`on url: ${appErr.route}`));
     console.error(chalk.bgRed(`with headers: ${appErr.trace}`));

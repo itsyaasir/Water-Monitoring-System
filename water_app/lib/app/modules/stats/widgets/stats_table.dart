@@ -65,12 +65,13 @@ class StatsTable extends GetView<StatsProvider> {
   List<DataRow> getRows(List<dynamic> data) {
     return List<DataRow>.generate(data.length, (i) {
       final statsList = data[i];
+      print(statsList);
 
       final cells = [
+        statsList["waterLevel"]!,
         statsList["temperature"]!,
         statsList["ph"]!,
         statsList["turb"]!,
-        // statsList["createdAt"]!,
         DateFormat("dd-MM-yyyy").format(
           DateTime.parse(statsList["createdAt"]!),
         ),

@@ -22,9 +22,9 @@ module.exports = {
         },
       },
       temperature: { type: Sequelize.FLOAT, allowNull: false },
-      ph: Sequelize.FLOAT,
-      turb: Sequelize.FLOAT,
-      waterLevel: Sequelize.FLOAT,
+      ph: { type: Sequelize.FLOAT, allowNull: false },
+      turb: { type: Sequelize.FLOAT, allowNull: false },
+      waterLevel: { type: Sequelize.FLOAT, allowNull: false },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
