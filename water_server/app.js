@@ -3,6 +3,7 @@ import logger from './src/utils/logger';
 import errorHandler from './src/middlewares/errorHandler';
 import { errorResponse } from './src/utils';
 import statsRoutes from './src/routes/stats.routes';
+import pumpsRoutes from './src/routes/pumps.routes';
 
 const express = require('express');
 const morgan = require('morgan');
@@ -35,6 +36,7 @@ app.use(express.json());
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/stats', statsRoutes);
+app.use('/api/v1/pumps', pumpsRoutes);
 
 app.use(errorHandler);
 

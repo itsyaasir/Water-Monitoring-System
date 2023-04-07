@@ -7,51 +7,56 @@ export default (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'stats',
       });
+
+      User.hasOne(models.Pumps, {
+        foreignKey: 'userId',
+        as: 'pumps',
+      });
     }
   }
 
-  User.init({
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: UUIDV4,
-      primaryKey: true,
+  User.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: UUIDV4,
+        primaryKey: true,
+      },
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: NOW,
+      },
     },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: NOW,
-    },
-
-  }, {
-    sequelize,
-    modelName: 'User',
-    tableName: 'users',
-    freezeTableName: true,
-
-  });
+    {
+      sequelize,
+      modelName: 'User',
+      tableName: 'users',
+      freezeTableName: true,
+    }
+  );
 
   return User;
 };

@@ -1,22 +1,22 @@
-import { Model } from 'sequelize';
+import { UUIDV4, NOW, Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
-  class Stats extends Model {
+  class Pumps extends Model {
     static associate(models) {
-      // define association here
-      Stats.belongsTo(models.User, {
+      Pumps.belongsTo(models.User, {
         foreignKey: 'userId',
         onDelete: 'CASCADE',
         as: 'user',
       });
     }
   }
-  Stats.init(
+
+  Pumps.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        defaultValue: UUIDV4,
         primaryKey: true,
-        autoIncrement: true,
       },
       userId: {
         type: DataTypes.UUID,
@@ -26,27 +26,34 @@ export default (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      temperature: { type: DataTypes.FLOAT, allowNull: false },
-      ph: { type: DataTypes.FLOAT, allowNull: false },
-      turb: { type: DataTypes.FLOAT, allowNull: false },
-      waterLevel: { type: DataTypes.FLOAT, allowNull: false },
+      waterStatus: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      treatmentStatus: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
+        defaultValue: NOW,
       },
       updatedAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
+        defaultValue: NOW,
       },
     },
     {
       sequelize,
-      modelName: 'Stats',
-      tableName: 'stats',
+      modelName: 'Pumps',
+      tableName: 'pumps',
       freezeTableName: true,
     }
   );
-  return Stats;
+
+  return Pumps;
 };

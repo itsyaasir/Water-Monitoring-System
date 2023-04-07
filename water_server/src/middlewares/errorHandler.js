@@ -15,7 +15,7 @@ const errorHandler = (err, req, res, _next) => {
     } else {
       messages = `${messages.join(', ')} is required field`;
     }
-    return errorResponse(req, res, messages, 400);
+    return errorResponse(req, res, 'HELP ME', 400);
   }
   return errorResponse(req, res, err.message, 500);
 };

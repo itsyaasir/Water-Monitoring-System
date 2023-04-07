@@ -10,10 +10,15 @@ const sequelize = new Sequelize({
   logging: (msg) => console.log(chalk.green(msg)),
 });
 
-sequelize.authenticate().then(() => {
-  console.log(chalk.greenBright('Connection has been established successfully.'));
-}).catch((err) => {
-  console.error(chalk.red('Unable to connect to the database:', err));
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log(
+      chalk.greenBright('Connection has been established successfully.')
+    );
+  })
+  .catch((err) => {
+    console.error(chalk.red('Unable to connect to the database:', err));
+  });
 
 module.exports = sequelize;

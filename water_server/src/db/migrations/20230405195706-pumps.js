@@ -5,13 +5,12 @@ module.exports = {
      * Add altering commands here.
      *
      * Example:
-
      */
-    await queryInterface.createTable('stats', {
+    await queryInterface.createTable('pumps', {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        autoIncrement: true,
       },
       userId: {
         type: Sequelize.UUID,
@@ -21,10 +20,16 @@ module.exports = {
           key: 'id',
         },
       },
-      temperature: { type: Sequelize.FLOAT, allowNull: false },
-      ph: Sequelize.FLOAT,
-      turb: Sequelize.FLOAT,
-      waterLevel: Sequelize.FLOAT,
+      waterStatus: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      treatmentStatus: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -38,13 +43,12 @@ module.exports = {
     });
   },
 
-  // eslint-disable-next-line no-unused-vars
   async down(queryInterface, _Sequelize) {
     /**
      * Add reverting commands here.
      *
      * Example:
      */
-    await queryInterface.dropTable('stats');
+    await queryInterface.dropTable('pumps');
   },
 };

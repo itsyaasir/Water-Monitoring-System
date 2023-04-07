@@ -8,16 +8,16 @@ import requireAuth from '../middlewares/requireAuth';
 const router = express.Router();
 
 /**
- * @route POST /api/stats
+ * @route POST /api/v1/stats
  * @Body temperature, ph, oxygen, ec
  * @desc Create a new stats
  * @access Private
  * */
 router.post(
   '/new',
+  // requireAuth,
   validate(statsValidator.statsSchema),
-  requireAuth,
-  statsController.postStats,
+  statsController.postStats
 );
 
 /**
@@ -38,7 +38,7 @@ router.get(
   '/range',
   validate(statsValidator.statsRangeSchema),
   requireAuth,
-  statsController.getStatsRange,
+  statsController.getStatsRange
 );
 
 /**

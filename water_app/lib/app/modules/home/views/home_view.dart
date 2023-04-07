@@ -47,9 +47,6 @@ class HomeView extends GetView<HomeController> {
                         value: 1,
                         child: ListTile(
                           title: Text("Logout"),
-                          // trailing: Icon(Icons.logout),
-
-                          // Icon - exiting door
                           trailing: Icon(Icons.keyboard_double_arrow_right),
                         ),
                       ),
@@ -91,62 +88,31 @@ class HomeView extends GetView<HomeController> {
                     }
                   }),
               const SizedBox(height: 20),
-              Obx(
-                () => AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 500),
-                    child: controller.getArduinoConnected
-                        ? Row(
-                            children: [
-                              const Text(
-                                "Arduino Connected",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const Spacer(),
-                              Container(
-                                height: 35,
-                                width: 35,
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(32.0),
-                                  ),
-                                ),
-                                child: const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              const Text(
-                                "Arduino Disconnected",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const Spacer(),
-                              Container(
-                                height: 35,
-                                width: 35,
-                                decoration: const BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(32.0),
-                                  ),
-                                ),
-                                child: const Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          )),
+              Row(
+                children: [
+                  const Text(
+                    "Arduino Connected",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    height: 35,
+                    width: 35,
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(32.0),
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               FutureBuilder(
@@ -181,10 +147,28 @@ class HomeView extends GetView<HomeController> {
                           const SizedBox(height: 10),
                           SizedBox(
                             child: LinearProgressIndicator(
-                              value: 0.8,
+                              value: double.parse(data!["waterLevel"]!) / 100,
                               backgroundColor: Colors.grey.withOpacity(0.5),
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                   Colors.blue),
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Text(
+                            'Chlorine Level',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            child: LinearProgressIndicator(
+                              value: 0.10,
+                              backgroundColor: Colors.grey.withOpacity(0.5),
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.green),
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -259,30 +243,6 @@ class HomeView extends GetView<HomeController> {
                   }
                 },
               ),
-
-              const SizedBox(height: 20),
-
-              // Switch the arduino connection on and off
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  const Text(
-                    "Arduino Connection",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Spacer(),
-                  Obx(
-                    () => CustomSwitch(
-                        value: controller.getArduinoConnected,
-                        onChanged: (val) =>
-                            {controller.setArduinoConnected(val)}),
-                  ),
-                ],
-              ),
-
               const SizedBox(height: 20),
               Row(
                 children: [
@@ -296,12 +256,29 @@ class HomeView extends GetView<HomeController> {
                   const Spacer(),
                   Obx(
                     () => CustomSwitch(
-                        value: controller.getWaterPump,
-                        onChanged: (val) => {controller.setWaterPump(val)}),
+                        value: controller.getWaterPumpStatus(),
+                        onChanged: (val) => {controller.toggleWaterPump()}),
                   ),
                 ],
               ),
-
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  const Text(
+                    "Treatment Pump",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Obx(
+                    () => CustomSwitch(
+                        value: controller.getTreatmentPumpStatus(),
+                        onChanged: (val) => {controller.toggleTreatmentPump()}),
+                  ),
+                ],
+              ),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

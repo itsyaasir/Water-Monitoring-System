@@ -28,12 +28,14 @@ class StatsProvider extends GetxController with PrintLogMixin {
         final temperature = latestStats['temperature'].toString();
         final ph = latestStats['ph'].toString();
         final turb = latestStats['turb'].toString();
+        final waterLevel = latestStats['waterLevel'].toString();
         final createdAt = latestStats['createdAt'].toString();
 
         final stats = {
           'temperature': temperature,
           'ph': ph,
           'turb': turb,
+          "waterLevel": waterLevel,
           'createdAt': createdAt,
         };
 
@@ -120,6 +122,7 @@ class StatsProvider extends GetxController with PrintLogMixin {
         final data = statsResponse.data;
 
         final stats = data.map((e) {
+          final waterLevel = e['waterLevel'].toString();
           final temperature = e['temperature'].toString();
           final ph = e['ph'].toString();
           final turb = e['turb'].toString();
@@ -130,6 +133,7 @@ class StatsProvider extends GetxController with PrintLogMixin {
             'ph': ph,
             'turb': turb,
             'createdAt': createdAt,
+            "waterLevel": waterLevel,
           };
         }).toList() as List<dynamic>;
 
@@ -170,6 +174,7 @@ class StatsProvider extends GetxController with PrintLogMixin {
         final data = statsResponse.data;
 
         final stats = data.map((e) {
+          final waterLevel = e['waterLevel'].toString();
           final temperature = e['temperature'].toString();
           final ph = e['ph'].toString();
           final turb = e['turb'].toString();
@@ -180,6 +185,7 @@ class StatsProvider extends GetxController with PrintLogMixin {
             'ph': ph,
             'turb': turb,
             'createdAt': createdAt,
+            "waterLevel": waterLevel,
           };
         }).toList();
 
@@ -220,12 +226,14 @@ class StatsProvider extends GetxController with PrintLogMixin {
         final data = statsResponse.data;
 
         final stats = data.map((e) {
+          final waterLevel = e['waterLevel'].toString();
           final temperature = e['temperature'].toString();
           final ph = e['ph'].toString();
           final turb = e['turb'].toString();
           final createdAt = e['createdAt'].toString();
 
           return {
+            "waterLevel": waterLevel,
             'temperature': temperature,
             'ph': ph,
             'turb': turb,
