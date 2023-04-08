@@ -1,56 +1,58 @@
+// Import the required libraries
 #include <LiquidCrystal_I2C.h>
 #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
-#include <iostream>
-#include <string>
 #include <HttpClient.h>
 #include <NewPing.h>
 
-WiFiClient client;
+// Define the WiFi credentials
 const char *ssid = "Alpha";
 const char *password = "Banshee42";
 
-String token;
-
-unsigned long startMillis; // some global variables available anywhere in the program
-unsigned long currentMillis;
-const unsigned long period = 1000 * 60 * 2; // 120 seconds
-
-// Define the server address and port
+// Define the IP address and port of the server
 const char *serverAddress = "172.16.0.103";
 int serverPort = 3000;
 
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+// Define User credentials
+const String email = "yasir@gmail.com";
+const String userPassword = "123456";
 
-int waterPumpInput = 2;      // Waterpumprelay
-int treatmentPumpInput = 13; // treatmentPumprelay
-
+// Define the pins used for the water and chlorine level sensors, pumps, and LEDs
 const int waterTrigPin = 14;
 const int waterEchoPin = 12;
-
 const int chlorineTrigPin = 15;
 const int chlorineEchoPin = 10;
-
+int waterPumpInput = 2;
+int treatmentPumpInput = 13;
 int LedRed = 16;
 int LedGreen = 9;
+const int turbidityPin = A0;
+
+// Define some global variables used for timing
+unsigned long startMillis;
+unsigned long currentMillis;
+const unsigned long period = 1000 * 60 * 2; // 120 seconds
+
+// Define some variables used to store data
 long tankDuration;
 long chlorineDuration;
-
 long waterLevelPercentage;
 long chlorineLevelPercentage;
-
 int tankLevel;
 int chlorineLevel;
-const int waterEmpty = 23 + 2;
-const int chlorineEmpty = 17 + 2;
+float turbidity;
+String token;
 
-NewPing waterSensor(waterTrigPin, waterEchoPin, waterEmpty);
-NewPing chlorineSensor(chlorineTrigPin, chlorineEchoPin, chlorineEmpty);
-
+// Define the HTTP client object and the WiFi client object
+WiFiClient client;
 HttpClient httpClient = HttpClient(client, serverAddress, serverPort);
 
-float turbidity;
-const int turbidityPin = A0;
+// Define the LCD object
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Define the NewPing objects for the water and chlorine sensors
+NewPing waterSensor(waterTrigPin, waterEchoPin);
+NewPing chlorineSensor(chlorineTrigPin, chlorineEchoPin);
 
 void setup()
 {
@@ -76,19 +78,18 @@ void setup()
   lcd.setCursor(0, 1);
   lcd.print("CHL  LEVEL: ");
 
-  pinMode(waterPumpInput, OUTPUT);     // initialize pin as OUTPUT
-  pinMode(treatmentPumpInput, OUTPUT); // initialize pin as OUTPUT
-  pinMode(waterTrigPin, OUTPUT);       // Sets the trigPin as an Output
-  pinMode(waterEchoPin, INPUT);        // Sets the echoPin as an Input
-  pinMode(chlorineTrigPin, OUTPUT);    // Sets the trigPin as an Output
-  pinMode(chlorineEchoPin, INPUT);     // Sets the echoPin as an Input
+  pinMode(waterPumpInput, OUTPUT);
+  pinMode(treatmentPumpInput, OUTPUT);
+  pinMode(waterTrigPin, OUTPUT);
+  pinMode(waterEchoPin, INPUT);
+  pinMode(chlorineTrigPin, OUTPUT);
+  pinMode(chlorineEchoPin, INPUT);
   pinMode(LedRed, OUTPUT);
   pinMode(LedGreen, OUTPUT);
   pinMode(turbidityPin, INPUT);
 
-  // Login
   token = login();
-  startMillis = millis(); // initial start time
+  startMillis = millis();
 }
 
 void loop()
@@ -142,29 +143,31 @@ void loop()
     digitalWrite(LedRed, LOW);
   }
 
-  // Toggle
   toggleTreatmentPump();
   toggleWaterPump();
 
-  // Print the data to the serial monitor
   Serial.println("Tank Level: " + String(waterLevelPercentage));
   Serial.println("CHL Level: " + String(chlorineLevelPercentage));
 
-  if (currentMillis - startMillis >= period) // test whether the period has elapsed
+  // Send data to the server every 2 minutes
+  if (currentMillis - startMillis >= period)
   {
-    sendData(); // if so, send the data
+    sendData();
     startMillis = currentMillis;
   }
 }
 
+/// @brief Login to the server and get the token
+/// @return The token
+/// @info The token is used to authenticate the user for subsequent requests
 String login()
 {
   // Create a JSON object to hold the login credentials
   const size_t capacity = JSON_OBJECT_SIZE(2);
   DynamicJsonBuffer jsonBuffer(capacity);
   JsonObject &root = jsonBuffer.createObject();
-  root["email"] = "yasir@gmail.com";
-  root["password"] = "123456";
+  root["email"] = email;
+  root["password"] = userPassword;
 
   // Serialize the JSON object to a String
   String requestBody;
@@ -194,7 +197,9 @@ String login()
   return root1["data"]["token"];
 }
 
-// we need to call the sendData function every 2 minutes, it is only for posting data to the server
+/// @brief Send the data to the server
+/// @param void
+/// @info The data should be a JSON object
 void sendData()
 {
   // Create a JSON object to hold the data
@@ -208,10 +213,8 @@ void sendData()
   root["waterLevel"] = waterLevelPercentage;
   root["token"] = token;
 
-  // Serialize the JSON object to a String
   String requestBody;
   root.printTo(requestBody);
-  // add the token to the header
   httpClient.post("/api/v1/stats/new", "application/json", requestBody); //
   httpClient.endRequest();
   int statusCode = httpClient.responseStatusCode();
@@ -227,12 +230,16 @@ void sendData()
   }
 }
 
+/// @brief This function toggle the water pump
+/// @param void
+/// @return void
+/// @note This function is called in the loop function
 void toggleWaterPump()
 {
   // We are getting the status of the water pump from the server to toggle the relay
   httpClient.beginRequest();
-  httpClient.get("/api/v1/pumps/waterStatus");
-  httpClient.sendHeader("x-token", token);
+  httpClient.get("/api/v1/pumps/waterStatus"); // get the status of the water pump
+  httpClient.sendHeader("x-token", token);     // add the token to the header
   httpClient.endRequest();
 
   int statusCode = httpClient.responseStatusCode();
@@ -245,20 +252,24 @@ void toggleWaterPump()
 
   if (status)
   {
-    digitalWrite(waterPumpInput, HIGH);
+    digitalWrite(waterPumpInput, HIGH); // turn on the water pump
   }
   else
   {
-    digitalWrite(waterPumpInput, LOW);
+    digitalWrite(waterPumpInput, LOW); // turn off the water pump
   }
 }
 
+/// @brief This function toggle the treatment pump
+/// @param void
+/// @return void
+/// @note This function is called in the loop function
 void toggleTreatmentPump()
 {
-  // We are getting the status of the water pump from the server to toggle the relay
+
   httpClient.beginRequest();
-  httpClient.get("/api/v1/pumps/treatmentStatus");
-  httpClient.sendHeader("x-token", token);
+  httpClient.get("/api/v1/pumps/treatmentStatus"); // get the status of the treatment pump
+  httpClient.sendHeader("x-token", token);         // add the token to the header
   httpClient.endRequest();
 
   int statusCode = httpClient.responseStatusCode();
@@ -272,10 +283,10 @@ void toggleTreatmentPump()
 
   if (status)
   {
-    digitalWrite(treatmentPumpInput, HIGH);
+    digitalWrite(treatmentPumpInput, HIGH); // turn on the treatment pump
   }
   else
   {
-    digitalWrite(treatmentPumpInput, LOW);
+    digitalWrite(treatmentPumpInput, LOW); // turn off the treatment pump
   }
 }
