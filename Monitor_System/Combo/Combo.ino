@@ -105,6 +105,7 @@ void loop()
   chlorineLevelPercentage = map(chlorineLevel, 17, 2, 0, 100);
 
   turbidity = analogRead(turbidityPin);
+  turbidity = map(turbidityPin, 0, 640, 100, 0);
 
   Serial.print("Turbidity : ");
   Serial.println(turbidity);
@@ -203,7 +204,7 @@ void sendData()
 
   root["chlorineLevel"] = chlorineLevelPercentage;
   root["ph"] = 7.5;
-  root["turbidity"] = 22.5;
+  root["turbidity"] = turbidity;
   root["waterLevel"] = waterLevelPercentage;
   root["token"] = token;
 
