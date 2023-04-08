@@ -201,10 +201,10 @@ void sendData()
   DynamicJsonBuffer jsonBuffer(capacity);
   JsonObject &root = jsonBuffer.createObject();
 
-  root["temperature"] = 35.5;
+  root["chlorineLevel"] = chlorineLevelPercentage;
   root["ph"] = 7.5;
-  root["turb"] = 22.5;
-  root["waterLevel"] = 30.3;
+  root["turbidity"] = 22.5;
+  root["waterLevel"] = waterLevelPercentage;
   root["token"] = token;
 
   // Serialize the JSON object to a String
