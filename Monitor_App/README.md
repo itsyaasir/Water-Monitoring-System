@@ -2,6 +2,14 @@
 
 This is a water monitoring app written in Flutter that allows users to monitor the water and chlorine tank levels, as well as other stats such as pH and turbidity. The app connects to a local server (Monitor_Server) in the same repository to fetch the data.
 
+## 🖼️ Screenshots <a name = "screenshots"></a>
+
+<img src="./screenshots/screen1.png" width="" height="500">
+<img src="./screenshots/screen2.png" width="" height="500">
+<img src="./screenshots/screen3.png" width="" height="500">
+<img src="./screenshots/screen3.png" width="" height="500">
+<img src="./screenshots/screen4.png" width="" height="500">
+
 ## Features
 
 - Realtime monitoring of water and chlorine tank levels.
