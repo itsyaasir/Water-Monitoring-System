@@ -5,7 +5,7 @@ module.exports = {
      * Add altering commands here.
      *
      * Example:
-    */
+     */
     await queryInterface.createTable('users', {
       id: {
         type: Sequelize.UUID,
@@ -47,8 +47,7 @@ module.exports = {
      * Add reverting commands here.
      *
      * Example:
-    */
+     */
     await queryInterface.dropTable('users');
   },
-
 };

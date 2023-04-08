@@ -19,10 +19,10 @@ export const postStats = async (req, res) => {
 
     const stats = await Stats.create({
       userId,
-      temperature: req.body.temperature,
+      chlorineLevel: req.body.chlorineLevel,
       ph: req.body.ph,
       waterLevel: req.body.waterLevel,
-      turb: req.body.turb,
+      turbidity: req.body.turbidity,
     });
 
     return successResponse(req, res, stats, 201);

@@ -21,9 +21,9 @@ module.exports = {
           key: 'id',
         },
       },
-      temperature: { type: Sequelize.FLOAT, allowNull: false },
+      chlorineLevel: { type: Sequelize.FLOAT, allowNull: false },
       ph: { type: Sequelize.FLOAT, allowNull: false },
-      turb: { type: Sequelize.FLOAT, allowNull: false },
+      turbidity: { type: Sequelize.FLOAT, allowNull: false },
       waterLevel: { type: Sequelize.FLOAT, allowNull: false },
       createdAt: {
         type: Sequelize.DATE,

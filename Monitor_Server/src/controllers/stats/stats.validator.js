@@ -2,9 +2,9 @@ import { Joi } from 'express-validation';
 
 export const statsSchema = {
   body: Joi.object({
-    temperature: Joi.number().required(),
+    chlorineLevel: Joi.number().required(),
     ph: Joi.number().required(),
-    turb: Joi.number().required(),
+    turbidity: Joi.number().required(),
     waterLevel: Joi.number().required(),
     token: Joi.string().required(),
   }),

@@ -69,9 +69,9 @@ class StatsTable extends GetView<StatsProvider> {
 
       final cells = [
         statsList["waterLevel"]!,
-        statsList["temperature"]!,
+        statsList["chlorineLevel"]!,
         statsList["ph"]!,
-        statsList["turb"]!,
+        statsList["turbidity"]!,
         DateFormat("dd-MM-yyyy").format(
           DateTime.parse(statsList["createdAt"]!),
         ),
