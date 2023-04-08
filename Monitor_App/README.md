@@ -4,11 +4,20 @@ This is a water monitoring app written in Flutter that allows users to monitor t
 
 ## 🖼️ Screenshots <a name = "screenshots"></a>
 
-<img src="./screenshots/screen1.png" width="" height="500">
-<img src="./screenshots/screen2.png" width="" height="500">
-<img src="./screenshots/screen3.png" width="" height="500">
-<img src="./screenshots/screen3.png" width="" height="500">
-<img src="./screenshots/screen4.png" width="" height="500">
+<table>
+  <tr>
+    <td>Login Page</td>
+     <td>Register Page</td>
+     <td>Dashboard Page</td>
+     <td>Stats Page</td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/screen3.png" width=270 height=480></td>
+    <td><img src="./screenshots/screen4.png" width=270 height=480></td>
+    <td><img src="./screenshots/screen1.png" width=270 height=480></td>
+    <td><img src="./screenshots/screen2.png" width=270 height=480></td>
+  </tr>
+ </table>
 
 ## Features
 
