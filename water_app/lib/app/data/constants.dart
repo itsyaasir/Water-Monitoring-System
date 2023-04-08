@@ -1,7 +1,7 @@
 class StatsValues {
   static final List<String> columns = [
     "Water Level",
-    "Temperature",
+    "Chlorine Level",
     "pH",
     "Turbidity",
     "Date"

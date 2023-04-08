@@ -25,16 +25,16 @@ class StatsProvider extends GetxController with PrintLogMixin {
         final data = statsResponse.data;
         final latestStats = data[0];
 
-        final temperature = latestStats['temperature'].toString();
+        final chlorineLevel = latestStats['chlorineLevel'].toString();
         final ph = latestStats['ph'].toString();
-        final turb = latestStats['turb'].toString();
+        final turbidity = latestStats['turbidity'].toString();
         final waterLevel = latestStats['waterLevel'].toString();
         final createdAt = latestStats['createdAt'].toString();
 
         final stats = {
-          'temperature': temperature,
+          'chlorineLevel': chlorineLevel,
           'ph': ph,
-          'turb': turb,
+          'turbidity': turbidity,
           "waterLevel": waterLevel,
           'createdAt': createdAt,
         };
@@ -71,15 +71,15 @@ class StatsProvider extends GetxController with PrintLogMixin {
         final data = statsResponse.data;
 
         final stats = data.map((e) {
-          final temperature = e['temperature'].toString();
+          final chlorineLevel = e['chlorineLevel'].toString();
           final ph = e['ph'].toString();
-          final turb = e['turb'].toString();
+          final turbidity = e['turbidity'].toString();
           final createdAt = e['createdAt'].toString();
 
           return {
-            'temperature': temperature,
+            'chlorineLevel': chlorineLevel,
             'ph': ph,
-            'turb': turb,
+            'turbidity': turbidity,
             'createdAt': createdAt,
           };
         }).toList();
@@ -123,15 +123,15 @@ class StatsProvider extends GetxController with PrintLogMixin {
 
         final stats = data.map((e) {
           final waterLevel = e['waterLevel'].toString();
-          final temperature = e['temperature'].toString();
+          final chlorineLevel = e['chlorineLevel'].toString();
           final ph = e['ph'].toString();
-          final turb = e['turb'].toString();
+          final turbidity = e['turbidity'].toString();
           final createdAt = e['createdAt'].toString();
 
           return {
-            'temperature': temperature,
+            'chlorineLevel': chlorineLevel,
             'ph': ph,
-            'turb': turb,
+            'turbidity': turbidity,
             'createdAt': createdAt,
             "waterLevel": waterLevel,
           };
@@ -175,15 +175,15 @@ class StatsProvider extends GetxController with PrintLogMixin {
 
         final stats = data.map((e) {
           final waterLevel = e['waterLevel'].toString();
-          final temperature = e['temperature'].toString();
+          final chlorineLevel = e['chlorineLevel'].toString();
           final ph = e['ph'].toString();
-          final turb = e['turb'].toString();
+          final turbidity = e['turbidity'].toString();
           final createdAt = e['createdAt'].toString();
 
           return {
-            'temperature': temperature,
+            'chlorineLevel': chlorineLevel,
             'ph': ph,
-            'turb': turb,
+            'turbidity': turbidity,
             'createdAt': createdAt,
             "waterLevel": waterLevel,
           };
@@ -227,16 +227,16 @@ class StatsProvider extends GetxController with PrintLogMixin {
 
         final stats = data.map((e) {
           final waterLevel = e['waterLevel'].toString();
-          final temperature = e['temperature'].toString();
+          final chlorineLevel = e['chlorineLevel'].toString();
           final ph = e['ph'].toString();
-          final turb = e['turb'].toString();
+          final turbidity = e['turbidity'].toString();
           final createdAt = e['createdAt'].toString();
 
           return {
             "waterLevel": waterLevel,
-            'temperature': temperature,
+            'chlorineLevel': chlorineLevel,
             'ph': ph,
-            'turb': turb,
+            'turbidity': turbidity,
             'createdAt': createdAt,
           };
         }).toList();

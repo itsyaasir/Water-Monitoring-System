@@ -147,7 +147,7 @@ class HomeView extends GetView<HomeController> {
                           const SizedBox(height: 10),
                           SizedBox(
                             child: LinearProgressIndicator(
-                              value: double.parse(data!["waterLevel"]!) / 100,
+                              value: double.parse(data!["waterLevel"]!),
                               backgroundColor: Colors.grey.withOpacity(0.5),
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                   Colors.blue),
@@ -165,7 +165,7 @@ class HomeView extends GetView<HomeController> {
                           const SizedBox(height: 10),
                           SizedBox(
                             child: LinearProgressIndicator(
-                              value: 0.10,
+                              value: double.parse(data["chlorineLevel"]!),
                               backgroundColor: Colors.grey.withOpacity(0.5),
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                   Colors.green),
@@ -182,29 +182,11 @@ class HomeView extends GetView<HomeController> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            '${data!["ph"]}',
+                            '${data["ph"]}',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: Colors.yellow.shade900,
-                            ),
-                          ),
-                          const SizedBox(height: 15),
-                          const Text(
-                            'Temperature',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            '${data["temperature"]}˚',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -226,7 +208,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                             child: Center(
                               child: Text(
-                                '${data["turb"]}',
+                                '${data["turbidity"]}',
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
