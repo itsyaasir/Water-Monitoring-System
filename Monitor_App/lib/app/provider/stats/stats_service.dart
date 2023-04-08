@@ -1,9 +1,10 @@
 import 'package:get_storage/get_storage.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/login_mixin.dart';
 import 'package:get/get.dart';
 
-const String baseUrl = "http://localhost:3000/api/v1/stats";
+const String baseUrl = "$SERVER_URL/api/v1/stats";
 
 class StatsService extends GetConnect with PrintLogMixin {
   Future<Response> getLatestStats() async {

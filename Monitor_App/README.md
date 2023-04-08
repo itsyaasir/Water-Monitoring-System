@@ -41,7 +41,7 @@ This is a water monitoring app written in Flutter that allows users to monitor t
 
 ## Configuration
 
-The app is currently configured to connect to the local server at <http://localhost:3000>. If you need to change this, update the SERVER_URL constant in the lib/utils/constants.dart file to the URL of your server.
+The app is currently configured to connect to the local server at <http://localhost:3000>. If you need to change this, update the SERVER_URL constant in the lib/app/utils/constants.dart file to the URL of your server.
 
 ## Contributing
 

@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:water_app/app/utils/constants.dart';
 import 'package:water_app/app/utils/login_mixin.dart';
 
 import '../../models/success_response.dart';
 
 import '../../models/error_response.dart';
 
-const String baseUrl = "http://localhost:3000/api/v1/auth";
+const String baseUrl = "$SERVER_URL/api/v1/auth";
 
 class AuthenticationService extends GetConnect with PrintLogMixin {
   Future<Response> register(

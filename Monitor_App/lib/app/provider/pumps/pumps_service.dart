@@ -1,13 +1,14 @@
 import 'package:get_storage/get_storage.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/login_mixin.dart';
 import 'package:get/get.dart';
 
-const String baseUrl = "http://localhost:3000/api/v1/pumps";
+const String baseUrl = "$SERVER_URL/api/v1/pumps";
 
 class PumpsService extends GetConnect with PrintLogMixin {
   Future<Response> toggleWaterPump() async {
-    printLog("getLatestStats");
+    printLog("toggleWaterPump");
     final response = await post(
       "$baseUrl/waterStatus",
       {},
@@ -32,7 +33,7 @@ class PumpsService extends GetConnect with PrintLogMixin {
   }
 
   Future<Response> toggleTreatmentPump() async {
-    printLog("getAllStats");
+    printLog("toggleTreatmentPump");
     final response = await post(
       "$baseUrl/treatmentStatus",
       {},
