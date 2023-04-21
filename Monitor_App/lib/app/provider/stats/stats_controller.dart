@@ -71,6 +71,7 @@ class StatsProvider extends GetxController with PrintLogMixin {
         final data = statsResponse.data;
 
         final stats = data.map((e) {
+          final waterLevel = e['waterLevel'].toString();
           final chlorineLevel = e['chlorineLevel'].toString();
           final ph = e['ph'].toString();
           final turbidity = e['turbidity'].toString();
@@ -81,6 +82,7 @@ class StatsProvider extends GetxController with PrintLogMixin {
             'ph': ph,
             'turbidity': turbidity,
             'createdAt': createdAt,
+            "waterLevel": waterLevel,
           };
         }).toList();
 
@@ -110,7 +112,7 @@ class StatsProvider extends GetxController with PrintLogMixin {
 
   Future<List<dynamic>> getDailyStats() async {
     try {
-      final startDate = DateTime.now().subtract(Duration(days: 1));
+      final startDate = DateTime.now().subtract(const Duration(days: 1));
       final endDate = new DateTime.now();
 
       var response = await _statsService.getStatsByRange(

@@ -34,12 +34,37 @@ class StatsView extends GetView<StatsController> {
                         ),
                       ),
                       const SizedBox(width: 10),
+                      const Spacer(),
                       const Text(
                         "Stats",
                         style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const Spacer(),
+                      PopupMenuButton(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        icon: const Icon(Icons.more_vert_outlined),
+                        itemBuilder: (context) => [
+                          const PopupMenuItem(
+                            value: 1,
+                            child: ListTile(
+                              title: Text("Export"),
+                              trailing: Icon(Icons.import_export_outlined),
+                            ),
+                          ),
+                        ],
+                        onSelected: (value) async {
+                          if (value == 1) {
+                            await Get.find<StatsController>().exportAsCsv();
+                          }
+                        },
                       ),
                     ],
                   ),
