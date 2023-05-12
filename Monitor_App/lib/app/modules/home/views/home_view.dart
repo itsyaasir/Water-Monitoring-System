@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:water_app/app/global_widgets/custom_switch.dart';
 import 'package:water_app/app/provider/authentication/auth_controller.dart';
 import 'package:water_app/app/provider/stats/stats_controller.dart';
@@ -136,42 +137,68 @@ class HomeView extends GetView<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Water Level',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                          Row(
+                            children: [
+                              const Text(
+                                'Water Level',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${data!["waterLevel"]}',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
                             child: LinearProgressIndicator(
-                              value: double.parse(data!["waterLevel"]!),
+                              value: double.parse(data["waterLevel"]!) / 100,
                               backgroundColor: Colors.grey.withOpacity(0.5),
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                   Colors.blue),
                             ),
                           ),
-                          const SizedBox(height: 15),
-                          const Text(
-                            'Chlorine Level',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              const Text(
+                                'Chlorine Level',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${data["chlorineLevel"]}',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
                             child: LinearProgressIndicator(
-                              value: double.parse(data["chlorineLevel"]!),
+                              value: double.parse(data["chlorineLevel"]!) / 100,
                               backgroundColor: Colors.grey.withOpacity(0.5),
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                   Colors.green),
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 20),
                           const Text(
                             'pH',
                             style: TextStyle(
@@ -190,32 +217,70 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          const Text(
-                            'Turbidity',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Container(
-                            height: 50,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${data["turbidity"]}',
+                          Row(
+                            children: [
+                              const Text(
+                                'Turbidity',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black.withOpacity(0.5),
+                                  color: Colors.black,
                                 ),
                               ),
-                            ),
+                              const Spacer(),
+                              // Show clear, moderate, or high based on the turbidity level
+                              double.parse(data["turbidity"]!) < 30
+                                  ? const Text(
+                                      'Clear',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue,
+                                      ),
+                                    )
+                                  : double.parse(data["turbidity"]!) < 60
+                                      ? Text(
+                                          'Cloudy',
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.yellow.shade900,
+                                          ),
+                                        )
+                                      : const Text(
+                                          'Dirty',
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+
+                          // Show the last updated time
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              const Text(
+                                'Last Updated',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                _parseDate(data["createdAt"]!),
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -311,4 +376,23 @@ String _getTimeAndSetGreeting() {
   } else {
     return "Good Night";
   }
+}
+
+// Parse date like this, `Today, 12:00 PM`
+String _parseDate(String date) {
+  // Check the date is today or not, and return the date accordingly
+  final today = DateTime.now();
+
+  if (today.day == DateTime.parse(date).day) {
+    final parsedDate = DateTime.parse(date);
+    final formatter = DateFormat('hh:mm a');
+    final formatted = formatter.format(parsedDate);
+    return 'Today, $formatted';
+  }
+
+  // If the date is not today, return the date like this, `12/12/2021`
+  final parsedDate = DateTime.parse(date);
+  final formatter = DateFormat('dd/MM/yyyy');
+  final formatted = formatter.format(parsedDate);
+  return formatted;
 }

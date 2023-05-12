@@ -6,8 +6,8 @@
 #include <NewPing.h>
 
 // Define the WiFi credentials
-const char *ssid = "Nexus";
-const char *password = "Banshee42";
+const char *ssid = "Yasir's iPhone";
+const char *password = "password@";
 
 // Define the IP address and port of the server
 const char *serverAddress = "172.16.0.103";
