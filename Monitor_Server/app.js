@@ -37,6 +37,13 @@ app.use(express.json());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/stats', statsRoutes);
 app.use('/api/v1/pumps', pumpsRoutes);
+// Health check
+app.get('/health-check', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Server is running',
+  });
+});
 
 app.use(errorHandler);
 
