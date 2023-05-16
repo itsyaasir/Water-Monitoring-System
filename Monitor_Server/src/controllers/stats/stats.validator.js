@@ -6,7 +6,6 @@ export const statsSchema = {
     ph: Joi.number().required(),
     turbidity: Joi.number().required(),
     waterLevel: Joi.number().required(),
-    token: Joi.string().required(),
   }),
 };
 
