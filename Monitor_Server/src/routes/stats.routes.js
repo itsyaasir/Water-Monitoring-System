@@ -15,7 +15,7 @@ const router = express.Router();
  * */
 router.post(
   '/new',
-  // requireAuth,
+  requireAuth,
   validate(statsValidator.statsSchema),
   statsController.postStats
 );

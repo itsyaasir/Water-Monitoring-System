@@ -2,23 +2,13 @@ import { Op } from 'sequelize';
 import logger from '../../utils/logger';
 import { errorResponse, successResponse } from '../../utils';
 
-const jwt = require('jsonwebtoken');
-
 const { Stats } = require('../../db/models');
 
 export const postStats = async (req, res) => {
   logger.info('Posting stats');
   try {
-    // Workaround for now
-
-    const { token } = req.body;
-
-    // Decode token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.id;
-
     const stats = await Stats.create({
-      userId,
+      userId: req.user.id,
       chlorineLevel: req.body.chlorineLevel,
       ph: req.body.ph,
       waterLevel: req.body.waterLevel,

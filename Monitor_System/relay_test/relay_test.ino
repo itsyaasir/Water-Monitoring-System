@@ -1,10 +1,11 @@
 int relayInput = 13; // the input to the relay pin
-void setup() {
+void setup()
+{
 
   pinMode(relayInput, OUTPUT); // initialize pin as OUTPUT
-
 }
-void loop() {
+void loop()
+{
 
   digitalWrite(relayInput, HIGH); // turn relay on
 
@@ -13,5 +14,4 @@ void loop() {
   digitalWrite(relayInput, LOW); // turn relay off
 
   delay(1000);
-
 }
